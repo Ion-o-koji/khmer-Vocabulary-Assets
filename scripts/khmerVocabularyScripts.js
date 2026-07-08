@@ -1,5 +1,5 @@
 
-    // ── Build UI ──────────────────────────────────────────────────────
+    
     (function() {
       var _app = document.getElementById('app');
       if (_app) _app.innerHTML = `
@@ -37,7 +37,7 @@
     <button id="nav-dash" onclick="goPage('dash','nav-dash');loadDashboard()">🌐 Dash</button>
   </nav>
 
-  <!-- ═══ VIEW PAGE ═══ -->
+  
   <div id="page-view" class="page">
     <div class="srow">
       <div class="srch-wrap"><input type="text" id="q" placeholder="🔍 Search…" oninput="_srchClear('q','q-clr');render()" autocomplete="off" /><button class="srch-clear" id="q-clr" onclick="el('q').value='';_srchClear('q','q-clr');el('q').focus();render()" title="Clear">×</button></div>
@@ -72,7 +72,7 @@
     </div>
   </div>
 
-  <!-- ═══ ADD PAGE ═══ -->
+  
   <div id="page-add" class="page">
     <div class="form-wrap">
       <h2>Add New Entry</h2>
@@ -101,7 +101,7 @@
     </div>
   </div>
 
-  <!-- ═══ TRANSLATION PAGE ═══ -->
+  
   <div id="page-trans" class="page">
     <div class="trans-wrap">
       <div class="trans-sticky-header">
@@ -126,7 +126,7 @@
     </div>
   </div>
 
-  <!-- ═══ FAVES PAGE ═══ -->
+  
   <div id="page-fav" class="page">
     <div class="srow">
       <div class="srch-wrap"><input type="text" id="fq" placeholder="🔍 Search favourites…" oninput="_srchClear('fq','fq-clr');renderFav()" autocomplete="off" /><button class="srch-clear" id="fq-clr" onclick="el('fq').value='';_srchClear('fq','fq-clr');el('fq').focus();renderFav()" title="Clear">×</button></div>
@@ -152,7 +152,7 @@
     </div>
   </div>
 
-  <!-- ═══ STUDY PAGE ═══ -->
+  
   <div id="page-study" class="page">
     <div class="study-wrap">
       <div class="study-method-label" style="margin-bottom:10px">🎴 Flashcard</div>
@@ -278,7 +278,7 @@
     </div>
   </div>
 
-  <!-- ═══ PROGRESS PAGE ═══ -->
+  
   <div id="page-progress" class="page">
     <div class="pg-wrap">
       <h2>📊 Progress &amp; Milestones</h2>
@@ -360,7 +360,7 @@
     </div>
   </div>
 
-  <!-- ═══ REF PAGE ═══ -->
+  
   <div id="page-ref" class="page">
     <div class="ref-wrap">
       <h2>📚 Khmer Reference</h2>
@@ -411,7 +411,7 @@
     </div>
   </div>
 
-  <!-- ═══ DASHBOARD PAGE ═══ -->
+  
   <div id="page-dash" class="page">
     <div class="dash-wrap">
       <h2>🌐 Dashboard</h2>
@@ -454,7 +454,7 @@
     </div>
   </div>
 
-  <!-- BOTTOM BARS -->
+  
   <div class="bar" id="bar">Showing 0 entries</div>
   <div class="bulk-bar" id="bulk-bar">
     <span class="bulk-info" id="bulk-info">0 selected</span>
@@ -465,7 +465,7 @@
   </div>
   <div class="tbox" id="tbox"></div>
 
-  <!-- EDIT SHEET -->
+  
   <div class="sovl" id="sovl" onclick="sovlBg(event)">
     <div class="esheet">
       <div class="sheet-handle"></div>
@@ -493,7 +493,7 @@
     </div>
   </div>
 
-  <!-- ═══ MODAL: Login ═══ -->
+  
   <div class="movl" id="user-ovl">
     <div class="mcard">
       <h3>👋 Khmer Vocab — Log In</h3>
@@ -508,7 +508,7 @@
     </div>
   </div>
 
-  <!-- ═══ MODAL: New User Step 2 ═══ -->
+  
   <div class="movl" id="user-step2-ovl">
     <div class="mcard">
       <h3>📂 Do you have a vocabulary CSV file?</h3>
@@ -520,7 +520,7 @@
     </div>
   </div>
 
-  <!-- ═══ MODAL: Account Quick ═══ -->
+  
   <div class="movl" id="acct-quick-ovl" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="mcard" style="max-width:380px">
       <h3>👤 Your Account</h3>
@@ -543,7 +543,7 @@
     </div>
   </div>
 
-  <!-- ═══ MODAL: Progress ═══ -->
+  
   <div class="movl" id="imp-prog-ovl" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="mcard" style="max-width:360px">
       <h3 id="imp-prog-title">📥 Progress</h3>
@@ -569,7 +569,7 @@
     </div>
   </div>
 
-  <!-- ═══ MODAL: Settings ═══ -->
+  
   <div class="movl" id="cfg-ovl" onclick="if(event.target===this)closeCfg()">
     <div class="mcard" style="max-width:520px">
       <h3>⚙️ Settings</h3>
@@ -841,7 +841,7 @@
             <div class="cr-title">Khmer Vocabulary</div>
             <div class="cr-sub">Personal or Social learning tool</div>
           </div>
-          <span style="font-size:.72rem;color:var(--dim)">v8.6.2</span>
+          <span style="font-size:.72rem;color:var(--dim)">v8.6.3</span>
         </div>
         <div class="cfg-row">
           <div class="cfg-row-left">
@@ -855,7 +855,7 @@
     </div>
   </div>
 
-  <!-- ═══ MODAL: Confidence Word List ═══ -->
+  
   <div class="movl" id="conf-words-ovl" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="mcard" style="max-width:480px">
       <h3 id="conf-words-title">Words</h3>
@@ -867,7 +867,7 @@
     </div>
   </div>
 
-  <!-- ═══ MODAL: Import CSV ═══ -->
+  
   <div class="movl" id="import-ovl" onclick="if(event.target===this)closeImportModal()">
     <div class="mcard">
       <h3>📂 Import from Google Sheets CSV</h3>
@@ -966,7 +966,7 @@
     </div>
   </div>
 
-  <!-- ═══ MODAL: Bulk Category ═══ -->
+  
   <div class="movl" id="bulkcat-ovl" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="mcard">
       <h3>📂 Change Category</h3>
@@ -980,7 +980,7 @@
   </div>
   </div>
 
-  <!-- ═══ MODAL: Custom Category ═══ -->
+  
   <div class="movl" id="newcat-ovl" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="mcard">
       <h3>🏷 Manage Categories</h3>
@@ -995,7 +995,7 @@
   </div>
   `;
     })();
-    // ── App logic ──────────────────────────────────────────────────────
+    
 
     var URL_KEY = 'kv_url',
       MAINUSER_KEY = 'kv_main_user',
@@ -1340,7 +1340,7 @@
       }
     ];
 
-    // ── Achievement system ────────────────────────────────────────────────
+    
 
     function todayKH() {
       var d = new Date(Date.now() + 7 * 3600000);
@@ -1411,7 +1411,7 @@
         unlock = (parseInt(ls(COMEBACK_KEY) || '0')) >= 20;
       } else if (id === 'tortoise') {
         var weeks = safeJsonParse(ls(WEEKLY_ADD_KEY), []);
-        // Require 4 *consecutive* week entries (each adjacent pair is 1 week apart)
+        
         if (weeks.length >= 4) {
           var tail = weeks.slice(-4);
           var consec = true;
@@ -1488,7 +1488,7 @@
       }
     }
 
-    // ── Theme ─────────────────────────────────────────────────────────────
+    
 
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme || 'dark');
@@ -3173,7 +3173,7 @@
       var item = pendingQueue[0];
       var _dupKey = (item.khmer || '').trim() + '|' + (item.english || '').trim().toLowerCase();
       // FIX: skip the allRows check when in readOnly mode — allRows is the *other user's* words,
-      // not MAIN_USER's, so it would incorrectly mark every borrowed word as a duplicate and drop it.
+      
       var _alreadyOnSheet = !readOnlyMode && allRows.some(function(r) {
         return r.id &&
           ((r.khmer || '').trim() + '|' + (r.english || '').trim().toLowerCase()) === _dupKey;
@@ -3235,7 +3235,7 @@
     function buildAddUrl(data) {
       var url = new URL(SCRIPT_URL);
       url.searchParams.set('action', 'addWord');
-      // FIX: include dateAdded so queued words land with the user's add-time, not the send-time
+      
       ['english', 'khmer', 'romanization', 'notes', 'category', 'tab', 'user', 'reqId', 'dateAdded'].forEach(function(f) {
         url.searchParams.set(f, data[f] || '');
       });
@@ -3409,7 +3409,7 @@
           if (r && (r.rowIndex > 0 || r.id)) {
             var url = new URL(SCRIPT_URL);
             url.searchParams.set('action', 'updateWord');
-            // FIX: pass id so Apps Script uses ID-based lookup, not stale rowIndex
+            
             ['english', 'khmer', 'romanization', 'notes', 'category', 'rowIndex'].forEach(function(f) {
               url.searchParams.set(f, r[f] || '');
             });
@@ -3734,7 +3734,7 @@
         didLong = false;
         timer = setTimeout(function() {
           didLong = true;
-          /* prevent text selection on long press */
+          
           if (window.getSelection) window.getSelection().removeAllRanges();
           document.body.style.webkitUserSelect = 'none';
           document.body.style.userSelect = 'none';
@@ -3750,7 +3750,7 @@
             once: true
           });
           openEditSheet(row);
-          /* blur any auto-focused input that the sheet may have opened */
+          
           setTimeout(function() {
             var a = document.activeElement;
             if (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.tagName === 'SELECT')) a.blur();
@@ -3873,7 +3873,7 @@
         toast('Connect your sheet in ⚙️ first.', 'err');
         return;
       }
-      // FIX: catch unsynced words (rowIndex=0) before sending — they have no sheet row yet
+      
       if (!editRow.rowIndex && !editRow.id) {
         toast('Word not yet synced to sheet — wait a moment then try again.', 'inf');
         return;
@@ -3888,7 +3888,7 @@
       editRow.romanization = ro;
       editRow.notes = no;
       editRow.category = cat;
-      // Capture id/tab before closeSheet() nulls editRow
+      
       var _queueItem = {
         id: editRow.id || '',
         rowIndex: editRow.rowIndex || '',
@@ -3900,12 +3900,12 @@
         tab: CURRENT_USER || MAIN_USER,
         user: CURRENT_USER || MAIN_USER
       };
-      // C1: background-save — commit locally & close immediately (mirrors delete/send-all UX)
+      
       saveCache(allRows);
       render();
       renderFav();
       closeSheet();
-      // editRow is now null — use _queueItem
+      
       setStatus('imp', '1 edit saving\u2026');
       setBusy(1);
       _editQueue.push(_queueItem);
@@ -4036,10 +4036,10 @@
         toast('Already in your queue!', 'inf');
         return;
       }
-      // FIX: do NOT check alreadyLocal against allRows here — in readOnly mode allRows is the
-      // *other user's* words, so every word in their sheet would appear to "already exist locally"
-      // and the borrow would always be silently blocked. The queue's own duplicate check and the
-      // server-side reqId idempotency are sufficient guards.
+      
+      
+      
+      
       var item = {
         english: en,
         khmer: kh,
@@ -4110,7 +4110,7 @@
         tab: CURRENT_USER || MAIN_USER,
         user: CURRENT_USER || MAIN_USER,
         reqId: 'R' + Date.now() + '_' + Math.floor(Math.random() * 99999),
-        dateAdded: nowKH() // FIX: capture add-time now so it's preserved through the queue
+        dateAdded: nowKH() 
       };
       allRows.unshift(Object.assign({}, item, {
         rowIndex: 0
@@ -4459,7 +4459,7 @@
       } else pool.sort(function() {
         return Math.random() - .5;
       });
-      // Apply confidence filter from second dropdown
+      
       if (confFilter === 'got') pool = pool.filter(function(r) {
         return confidence[wordKey(r)] === 2;
       });
@@ -4798,7 +4798,7 @@
       var hm = el('heatmap');
       if (hm) {
         hm.innerHTML = '';
-        // C8: anchor all date math to Cambodia time (UTC+7) so heatmap matches sheet dates
+        
         var _hmOff = 7 * 3600000;
         var today = new Date(Date.now() + _hmOff),
           dc = {};
@@ -4935,8 +4935,8 @@
         el('dash-error-msg').textContent = 'Connect your sheet in ⚙️ first.';
         return;
       }
-      // C10: ignore duplicate/overlapping loads (e.g. double-tapping the Dash tab) so the
-      // Top Streak card can't be raced between two in-flight refreshes.
+      
+      
       if (_dashLoadInFlight) return;
       _dashLoadInFlight = true;
       el('dash-loading').style.display = 'block';
@@ -4966,7 +4966,7 @@
     function renderDashboard(stats, awData) {
       var cards = el('dash-stat-cards');
       if (cards) {
-        // C2: compute top adder this week from full word list (Cambodia UTC+7)
+        
         var _recentRows = (awData && awData.data && awData.data['📋 All Words']) || [];
         var _khNow = Date.now() + 7 * 3600000;
         var _weekMs = 7 * 86400000;
@@ -4984,13 +4984,13 @@
             _topAdder = u;
           }
         });
-        // Shared leadercard template: name line 1 (ellipsis), "(N unit)" line 2 — both cards use identical markup
+        
         function _mkCard(name, count, unit) {
           return '<span style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.88em;max-width:100%">' + esc(name) + '</span>' +
             '<span style="display:block;font-size:.72em;opacity:.65">(' + count + ' ' + unit + ')</span>';
         }
         var _topAdderVal = _topAdder ? _mkCard(_topAdder, _topAdderCnt, 'words') : ((stats.wordsThisWeek || 0) + ' words this week');
-        // C4: streak card uses same _mkCard template as Top Adder — name line 1, "(N days)" line 2
+        
         var _streakVal = stats.topStreakUser ? _mkCard(stats.topStreakUser, stats.topStreakCount || 0, 'days') : '—';
         cards.innerHTML = [
           ['Total Words', stats.totalWords || 0],
@@ -5004,7 +5004,7 @@
       var usersEl = el('dash-users');
       if (usersEl) {
         usersEl.innerHTML = '';
-        // Sort by word count descending, but always pin MAIN_USER (Porter Olsen) at the top
+        
         var users = (stats.users || []).slice().sort(function(a, b) {
           if (a.name === MAIN_USER && b.name !== MAIN_USER) return -1;
           if (b.name === MAIN_USER && a.name !== MAIN_USER) return 1;
@@ -5055,8 +5055,8 @@
                   category: row.category || 'Words',
                   tab: MAIN_USER,
                   user: MAIN_USER,
-                  reqId: 'R' + Date.now() + '_' + Math.floor(Math.random() * 99999), // FIX: add reqId for idempotency on retry
-                  dateAdded: nowKH() // FIX: capture add-time at click
+                  reqId: 'R' + Date.now() + '_' + Math.floor(Math.random() * 99999), 
+                  dateAdded: nowKH() 
                 };
                 var dupe = pendingQueue.some(function(q) {
                   return q.english === item2.english && q.khmer === item2.khmer;
@@ -6127,7 +6127,7 @@
     }
 
     function dictSpeakItem(item) {
-      // C10: speak the translation result (Khmer preferred, English fallback)
+      
       var kh = (item && item.kh) || '';
       var en = (item && item.en) || '';
       if (kh && /[ក-៿]/.test(kh)) {
@@ -6222,7 +6222,7 @@
               var _p = function(x) {
                 return x < 10 ? '0' + x : String(x);
               };
-              // FIX: use Cambodia time (UTC+7) so imported dates are consistent with the sheet timezone
+              
               var _khNow = new Date(Date.now() + 7 * 3600000);
               csvParsed = [];
               var skipped = 0,
@@ -6779,7 +6779,7 @@
     document.addEventListener('fullscreenchange', _updateFsBtn);
     document.addEventListener('webkitfullscreenchange', _updateFsBtn);
 
-    document.addEventListener('DOMContentLoaded', function() {
+    function _onReady() {
       applyTheme(ls(THEME_KEY) || 'dark');
       // C11: boot stale/incomplete (unverified) sessions — treat exactly like pressing Log Out
       if (ls(MAINUSER_KEY) && !ls('kv_verified')) {
@@ -6817,10 +6817,18 @@
       }
       applyTabOrder();
       loadColWidths();
-    });
+    }
+
+    // Guard: if DOM already parsed when script loads (e.g. loaded via CDN after DOMContentLoaded
+    // has already fired), run immediately. Otherwise wait for the event.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', _onReady);
+    } else {
+      _onReady();
+    }
 
     (() => {
-      const ENTRY = 'Khmer Vocabulary v8.6.2',
+      const ENTRY = 'Khmer Vocabulary v8.6.3',
         KEY = 'Ion-o-koji Watermark';
       const logs = (localStorage.getItem(KEY) || "").split('\n').map(line => line.replace(/^- /, '').trim()).filter(line => line && line !== ENTRY);
       logs.push(ENTRY);
