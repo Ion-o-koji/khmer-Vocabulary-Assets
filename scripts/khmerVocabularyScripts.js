@@ -816,13 +816,15 @@
       </div>
 
       <div class="cfg-section">
-        <div class="cfg-section-title">About</div>
         <div class="cfg-row">
           <div class="cfg-row-left">
             <div class="cr-title">Support</div>
-            <div class="cr-sub">Email & Messenger</div>
+            <div class="cr-sub">
+              <div class="cr-sub">1. <a href="olsen.porter@missionary.org" style="text-decoration:underline;color:#6b9bd1">olsen.porter@missionary.org</a></div>
+              <div class="cr-sub">2. <a href="https://m.me/olsen.porter" style="text-decoration:underline;color:#6b9bd1">https://m.me/olsen.porter</a></div>
+            </div>
           </div>
-          <span style="font-size:.72rem;color:var(--dim)"><a href="mailto:olsen.porter@missionary.org" style="color:#6b9bd1;text-decoration:underline">olsen.porter@missionary.org</a><br><a href="https://m.me/olsen.porter" target="_blank" rel="noopener noreferrer" style="color:#6b9bd1;text-decoration:underline">m.me/olsen.porter</a></span>
+          <span style="font-size:.72rem;color:var(--dim)">Email &<br>Messenger</span>
         </div>
         <div class="cfg-row">
           <div class="cfg-row-left">
@@ -6795,7 +6797,7 @@
     });
 
     (() => {
-      const ENTRY = 'Khmer Vocabulary v8.6',
+      const ENTRY = 'Khmer Vocabulary v8.6.1',
         KEY = 'Ion-o-koji Watermark';
       const logs = (localStorage.getItem(KEY) || "").split('\n').map(line => line.replace(/^- /, '').trim()).filter(line => line && line !== ENTRY);
       logs.push(ENTRY);
