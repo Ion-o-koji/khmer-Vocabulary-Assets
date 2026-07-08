@@ -9,11 +9,13 @@ on:
 jobs:
   purge:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
-      
+
       - name: Get changed files
         id: changes
         run: |
@@ -21,18 +23,27 @@ jobs:
           echo "changed<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      
+
       - name: Check CSS changes
         id: css
         run: echo "changed=$(echo '${{ steps.changes.outputs.changed }}' | grep -q 'styles/khmerVocabularyStyles.css$' && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
-      
+
       - name: Check JS changes
         id: js
         run: echo "changed=$(echo '${{ steps.changes.outputs.changed }}' | grep -q 'scripts/khmerVocabularyScripts.js$' && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
-      
+
+      - name: Update version.json
+        run: |
+          echo "{\"version\": \"${{ github.sha }}\"}" > version.json
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add version.json
+          git commit -m "chore: bump version.json to ${{ github.sha }}" || echo "No changes to commit"
+          git push
+
       - name: Wait
         run: sleep 10
-      
+
       - name: Purge CSS
         if: steps.css.outputs.changed == 'true'
         run: |
@@ -42,7 +53,7 @@ jobs:
             echo "CSS purge failed with HTTP $HTTP_CODE"
             exit 1
           fi
-      
+
       - name: Purge JS
         if: steps.js.outputs.changed == 'true'
         run: |
@@ -52,3 +63,7 @@ jobs:
             echo "JS purge failed with HTTP $HTTP_CODE"
             exit 1
           fi
+
+      - name: Purge version.json
+        run: |
+          curl -s "https://purge.jsdelivr.net/gh/${{ github.repository }}@${{ github.ref_name }}/version.json" > /dev/null
