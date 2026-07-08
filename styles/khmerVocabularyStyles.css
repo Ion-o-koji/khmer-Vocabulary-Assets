@@ -3241,7 +3241,7 @@
       color: var(--acc3)
     }
 
-    /* CSV Example */
+    
     .csv-example {
       background: var(--surf);
       border: 1px solid var(--bdr);
@@ -3305,7 +3305,7 @@
       color: var(--ok)
     }
 
-    /* ── Light mode ── */
+    
     :root[data-theme="light"] {
       --bg: #f4f4f8;
       --surf: #ffffff;
@@ -3504,7 +3504,7 @@
       box-shadow: 0 0 0 2px rgba(124, 58, 237, .12);
     }
 
-    /* ── Study method blocks ── */
+    
     .study-method-block {
       background: rgba(255, 255, 255, .04);
       border: 1px solid rgba(255, 255, 255, .09);
@@ -3594,7 +3594,7 @@
       gap: 2px;
     }
 
-    /* ── Writing / Spelling / Listening section ── */
+    
     .study-divider {
       border: none;
       border-top: 1px solid rgba(255, 255, 255, .1);
@@ -3671,7 +3671,7 @@
       border: 1px solid rgba(239, 68, 68, .25);
     }
 
-    /* ── Achievement toast ── */
+    
     .toast.achv-toast {
       background: linear-gradient(135deg, #2d1f6e, #4c1d95) !important;
       color: #fff !important;
@@ -3690,7 +3690,7 @@
       font-size: 1.4rem;
     }
 
-    /* ── Achievement card (slightly wider than milestone card) ── */
+    
     .achv-card {
       width: 68px !important;
     }
