@@ -10,6 +10,8 @@
 </div>
 
 
+
+
   <header>
     <h1>Kh Vocab</h1>
     <span class="user-badge" id="ubadge" onclick="openAccountQuick()" style="display:none"></span>
@@ -22,10 +24,14 @@
   </header>
 
 
+
+
   <div class="ro-banner" id="ro-banner">
     <span>👁 Viewing <strong id="ro-banner-name"></strong> — read-only</span>
     <button class="ro-return-btn" onclick="returnToMyAccount()">Return to my account</button>
   </div>
+
+
 
 
   <nav class="nav">
@@ -37,6 +43,8 @@
     <button id="nav-ref" onclick="goPage('ref','nav-ref')">📚 Ref</button>
     <button id="nav-dash" onclick="goPage('dash','nav-dash');loadDashboard()">🌐 Dash</button>
   </nav>
+
+
 
 
   
@@ -75,6 +83,8 @@
   </div>
 
 
+
+
   
   <div id="page-add" class="page">
     <div class="form-wrap">
@@ -105,6 +115,8 @@
   </div>
 
 
+
+
   
   <div id="page-trans" class="page">
     <div class="trans-wrap">
@@ -129,6 +141,8 @@
       </div>
     </div>
   </div>
+
+
 
 
   
@@ -215,6 +229,8 @@
       </div>
 
 
+
+
       <hr class="study-divider">
       <div class="study-method-block">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
@@ -235,6 +251,8 @@
           <button class="study-check-btn" id="write-check-btn" onclick="checkWriting()">✓ Check</button>
         </div>
       </div>
+
+
 
 
       <hr class="study-divider">
@@ -259,6 +277,8 @@
       </div>
     </div>
   </div>
+
+
 
 
   
@@ -344,6 +364,8 @@
   </div>
 
 
+
+
   
   <div id="page-ref" class="page">
     <div class="ref-wrap">
@@ -396,6 +418,8 @@
   </div>
 
 
+
+
   
   <div id="page-dash" class="page">
     <div class="dash-wrap">
@@ -428,7 +452,7 @@
         <div class="stat-cards" id="dash-stat-cards"></div>
         <div class="section-card">
           <h3>Users &amp; Word Counts</h3>
-          <div style="font-size:.72rem;color:var(--dim);margin-bottom:8px">Tap a user's name here, or use the top bar / ⚙️ Settings, to view their sheet.</div>
+          <div style="font-size:.72rem;color:var(--dim);margin-bottom:8px">Tap a user's name here, your name on the top bar, or go to the setings, to view their sheet.</div>
           <div id="dash-users"></div>
         </div>
         <div class="section-card">
@@ -441,6 +465,8 @@
   </div>
 
 
+
+
   
   <div class="bar" id="bar">Showing 0 entries</div>
   <div class="bulk-bar" id="bulk-bar">
@@ -450,6 +476,8 @@
     <button class="bulk-act ba-clr" onclick="exitBulk()">✕</button>
   </div>
   <div class="tbox" id="tbox"></div>
+
+
 
 
   
@@ -481,6 +509,8 @@
   </div>
 
 
+
+
   
   <div class="movl" id="user-ovl">
     <div class="mcard">
@@ -497,6 +527,8 @@
   </div>
 
 
+
+
   
   <div class="movl" id="user-step2-ovl">
     <div class="mcard">
@@ -508,6 +540,8 @@
       </div>
     </div>
   </div>
+
+
 
 
   
@@ -532,6 +566,8 @@
       </div>
     </div>
   </div>
+
+
 
 
   
@@ -561,10 +597,14 @@
   </div>
 
 
+
+
   
   <div class="movl" id="cfg-ovl" onclick="if(event.target===this)closeCfg()">
     <div class="mcard" style="max-width:520px">
       <h3>⚙️ Settings</h3>
+
+
 
 
       <div class="cfg-section">
@@ -597,6 +637,8 @@
         </div>
         <div class="accent-row" id="accent-row"></div>
       </div>
+
+
 
 
       <div class="cfg-section">
@@ -705,6 +747,8 @@
       </div>
 
 
+
+
       <div class="cfg-section">
         <div class="cfg-section-title">Column Widths</div>
         <div style="font-size:.74rem;color:var(--dim);margin-bottom:10px">Drag to resize each column. For reference the total width of your screen is probably around 375px if it's similar to mine.</div>
@@ -719,6 +763,8 @@
       </div>
 
 
+
+
       <div class="cfg-section">
         <div class="cfg-section-title">Account &amp; Identity</div>
         <div class="cfg-row">
@@ -729,6 +775,8 @@
           <button class="btn-danger" onclick="logout();closeCfg();" style="font-size:.74rem;padding:6px 11px;height:auto">🚪 Log Out</button>
         </div>
       </div>
+
+
 
 
       
@@ -749,6 +797,8 @@
       </div>
 
 
+
+
       <div class="cfg-section">
         <div class="cfg-section-title">Sheet Connection</div>
         <div class="cfg-row">
@@ -766,6 +816,8 @@
           <button class="btn-g" onclick="clearCache()" style="font-size:.76rem;padding:7px 11px">Clear</button>
         </div>
       </div>
+
+
 
 
       <div class="cfg-section">
@@ -804,7 +856,11 @@
       </div>
 
 
+
+
       
+
+
 
 
       <div class="cfg-section">
@@ -814,6 +870,8 @@
         <div style="height:6px"></div>
         <button class="btn-g" style="font-size:.74rem;padding:7px 12px" onclick="resetTabOrder()">Reset to default</button>
       </div>
+
+
 
 
       <div class="cfg-section">
@@ -857,6 +915,8 @@
   </div>
 
 
+
+
   
   <div class="movl" id="conf-words-ovl" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="mcard" style="max-width:480px">
@@ -870,10 +930,14 @@
   </div>
 
 
+
+
   
   <div class="movl" id="import-ovl" onclick="if(event.target===this)closeImportModal()">
     <div class="mcard">
       <h3>📂 Import from Google Sheets CSV</h3>
+
+
 
 
       <div class="step-box">
@@ -903,6 +967,8 @@
           <div class="step-text">Choose that .csv file when you press the button below (It should be in you download folder). Duplicates are skipped. Date defaults to today if blank.</div>
         </div>
       </div>
+
+
 
 
       <div class="csv-example">
@@ -940,13 +1006,19 @@
       </div>
 
 
+
+
       <div class="csv-dl-note">
         📍 <strong>Important:</strong> You must follow the steps <strong>exactly</strong>, you must also be in the sheet and save to CSV.<br>
         - You must also format the sheet <strong>exactly</strong>
       </div>
 
 
+
+
       <div class="csv-err" id="csv-err"></div>
+
+
 
 
       <div id="csv-main-area">
@@ -956,16 +1028,22 @@
       </div>
 
 
+
+
       <div class="csv-loading" id="csv-loading">
         <div class="csv-spinner"></div>
         <div class="csv-loading-txt" id="csv-loading-txt">Reading file…</div>
       </div>
 
 
+
+
       <div id="csv-preview" style="display:none;margin-bottom:12px">
         <div style="font-size:.75rem;font-weight:700;color:var(--text);margin-bottom:6px" id="csv-preview-title"></div>
         <div style="background:var(--surf2);border-radius:8px;padding:10px;max-height:140px;overflow-y:auto" id="csv-preview-list"></div>
       </div>
+
+
 
 
       <div class="macts">
@@ -976,6 +1054,8 @@
       </div>
     </div>
   </div>
+
+
 
 
   
@@ -993,6 +1073,8 @@
   </div>
 
 
+
+
   
   <div class="movl" id="newcat-ovl" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="mcard">
@@ -1008,6 +1090,7 @@
   </div>
   `;
     })();
+
 
     var URL_KEY = 'kv_url',
       MAINUSER_KEY = 'kv_main_user',
@@ -1035,6 +1118,7 @@
       NIGHT_OWL_KEY = 'kv_night_owl_count',
       COMPETITIVE_KEY = 'kv_competitive_won';
 
+
     // ── Universal version number ──────────────────────────────────────────
     // Change ONLY this one constant to bump the app version everywhere:
     // the Settings page, the exported JSON backup, the stat sent to the
@@ -1042,6 +1126,7 @@
     var APP_VERSION = '8.7.0';
     var LAST_SEEN_VERSION_KEY = 'kv_last_seen_version';
     var CHANGELOG_URL = 'https://docs.google.com/document/d/1ynpcFYYxTFDjj9exho4jvJZeWI55VQJDmJutVzQgH30/edit?usp=drivesdk';
+
 
     var SCRIPT_URL = ls(URL_KEY) || 'https://script.google.com/macros/s/AKfycbwANcenl0L59PHfjo50yoIp-0iwvV8sC6mlFzg3hVsKOJFffrW4lce5nB3DQGpecVK9/exec';
     var MAIN_USER = ls(MAINUSER_KEY) || '';
@@ -1066,6 +1151,7 @@
     var activeTasks = 0;
     var lastWriteTime = 0;
 
+
     var favorites = new Set(safeJsonParse(ls(FAV_KEY), []));
     var confidence = safeJsonParse(ls(CONF_KEY), {});
     var srsData = safeJsonParse(ls(SRS_KEY), {});
@@ -1085,17 +1171,20 @@
       label: ''
     };
 
+
     var deleteState = {
       active: false,
       total: 0,
       done: 0
     };
 
+
     var saveState = {
       active: false,
       total: 0,
       done: 0
     };
+
 
     var DEFAULT_CATS = ['Words', 'Sentences'];
     var S = {
@@ -1229,6 +1318,7 @@
       name: 'Legend'
     }];
 
+
     var MILESTONES_MASTER = [{
       n: 5,
       icon: '✨',
@@ -1255,6 +1345,7 @@
       name: '500 Mastered'
     }];
 
+
     var MILESTONES_STREAK = [{
       n: 3,
       icon: '🔔',
@@ -1280,6 +1371,7 @@
       icon: '👑',
       name: '100 Days'
     }];
+
 
     var ACHIEVEMENTS = [{
         id: 'star_collector',
@@ -1435,6 +1527,7 @@
       }
     ];
 
+
     function todayKH() {
       var d = new Date(Date.now() + 7 * 3600000);
       var p = function(x) {
@@ -1442,6 +1535,7 @@
       };
       return d.getUTCFullYear() + '-' + p(d.getUTCMonth() + 1) + '-' + p(d.getUTCDate());
     }
+
 
     function isoWeekKey() {
       var d = new Date(Date.now() + 7 * 3600000);
@@ -1453,6 +1547,7 @@
       return monday.getUTCFullYear() + '-' + p(monday.getUTCMonth() + 1) + '-' + p(monday.getUTCDate());
     }
 
+
     function trackWeeklyAdd() {
       var weeks = safeJsonParse(ls(WEEKLY_ADD_KEY), []);
       var wk = isoWeekKey();
@@ -1463,6 +1558,7 @@
       }
       checkAndUnlock('tortoise');
     }
+
 
     function unlockAchievement(id) {
       if (achievements[id] && achievements[id].unlocked) return false;
@@ -1481,6 +1577,7 @@
       if (id !== 'completionist') checkAndUnlock('completionist');
       return true;
     }
+
 
     function checkAndUnlock(id) {
       if (achievements[id] && achievements[id].unlocked) return;
@@ -1567,6 +1664,7 @@
       if (unlock) unlockAchievement(id);
     }
 
+
     function showAchievementToast(a) {
       var box = el('tbox');
       if (!box) return;
@@ -1578,6 +1676,7 @@
         if (div.parentNode) div.parentNode.removeChild(div);
       }, 5500);
     }
+
 
     function renderAchvShelf() {
       var shelf = el('achv-shelf');
@@ -1613,6 +1712,7 @@
       }
     }
 
+
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme || 'dark');
       var btn = el('theme-toggle-btn');
@@ -1620,11 +1720,13 @@
       lsSet(THEME_KEY, theme || 'dark');
     }
 
+
     function toggleTheme() {
       var current = document.documentElement.getAttribute('data-theme') || 'dark';
       applyTheme(current === 'dark' ? 'light' : 'dark');
       checkAndUnlock('customizer');
     }
+
 
     function ls(k) {
       try {
@@ -1634,11 +1736,13 @@
       }
     }
 
+
     function lsSet(k, v) {
       try {
         localStorage.setItem(k, v);
       } catch (e) {}
     }
+
 
     function safeJsonParse(s, d) {
       try {
@@ -1648,15 +1752,18 @@
       }
     }
 
+
     function esc(s) {
       var d = document.createElement('div');
       d.textContent = String(s || '');
       return d.innerHTML;
     }
 
+
     function el(id) {
       return document.getElementById(id);
     }
+
 
     function applyColWidth(col, val) {
       val = parseInt(val);
@@ -1669,6 +1776,7 @@
       var numEl = el('cw-' + col + '-num');
       if (numEl && document.activeElement !== numEl) numEl.value = val;
     }
+
 
     function loadColWidths() {
       ['en', 'kh', 'ro', 'no', 'ca'].forEach(function(c) {
@@ -1696,6 +1804,7 @@
       });
     }
 
+
     function resetColWidths() {
       if (!confirm('Reset all column widths to default?')) return;
       colWidths = {};
@@ -1712,6 +1821,7 @@
       toast('Column widths reset.', 'ok');
     }
 
+
     function nowKH() {
       var d = new Date();
       var kh = new Date(d.getTime() + 7 * 3600000);
@@ -1720,6 +1830,7 @@
       };
       return kh.getUTCFullYear() + '-' + p(kh.getUTCMonth() + 1) + '-' + p(kh.getUTCDate()) + ' ' + p(kh.getUTCHours()) + ':' + p(kh.getUTCMinutes());
     }
+
 
     // Returns the real UTC timestamp (ms) of the most recent Monday 17:30
     // Cambodia time (UTC+7, no DST) — the boundary the "Top Adder This Week"
@@ -1736,6 +1847,7 @@
       return monday.getTime() - KH_OFFSET;
     }
 
+
     function hlText(s, q) {
       if (!q) return esc(s);
       var sl = s.toLowerCase(),
@@ -1743,6 +1855,7 @@
       if (idx === -1) return esc(s);
       return esc(s.slice(0, idx)) + '<span class="hl">' + esc(s.slice(idx, idx + q.length)) + '</span>' + hlText(s.slice(idx + q.length), q);
     }
+
 
     function bCls(cat) {
       var m = {
@@ -1755,26 +1868,32 @@
       return m[cat] || 'bc';
     }
 
+
     function wordKey(r) {
       return (r.khmer || '') + '§' + (r.english || '') + '§' + (r.romanization || '');
     }
 
+
     function isFav(r) {
       return favorites.has(wordKey(r));
     }
+
 
     function saveFavorites() {
       lsSet(FAV_KEY, JSON.stringify(Array.from(favorites)));
       checkAndUnlock('star_collector');
     }
 
+
     function saveStudySets() {
       lsSet(SETS_KEY, JSON.stringify(studySets));
     }
 
+
     function saveCatOrder() {
       lsSet(CAT_ORDER_KEY, JSON.stringify(catOrder));
     }
+
 
     function initCatOrder() {
       var all = getAllCats();
@@ -1786,6 +1905,7 @@
       });
       saveCatOrder();
     }
+
 
     function moveCatItem(idx, dir) {
       initCatOrder();
@@ -1799,6 +1919,7 @@
       refreshAllCatDropdowns();
     }
 
+
     function resetCatOrder() {
       catOrder = [];
       saveCatOrder();
@@ -1807,13 +1928,16 @@
       toast('Category order reset.', 'ok');
     }
 
+
     function saveCustomCats() {
       lsSet(CATS_KEY, JSON.stringify(customCats));
     }
 
+
     function savePendingQueue() {
       lsSet(QUEUE_KEY, JSON.stringify(pendingQueue));
     }
+
 
     function getAllCats() {
       var raw = DEFAULT_CATS.slice();
@@ -1842,6 +1966,7 @@
       return cats;
     }
 
+
     async function fetchCredentials() {
       if (!SCRIPT_URL) return [];
       try {
@@ -1853,6 +1978,7 @@
         return [];
       }
     }
+
 
     async function verifyLogin(name, pass) {
       if (!SCRIPT_URL) return 'new_user';
@@ -1870,6 +1996,7 @@
       }
     }
 
+
     function registerUserCredentials(name, pass) {
       if (!SCRIPT_URL || !name || !pass) return;
       var url = new URL(SCRIPT_URL);
@@ -1878,6 +2005,7 @@
       url.searchParams.set('password', pass);
       fetch(url.toString()).catch(function() {});
     }
+
 
     async function deleteCredentials(name) {
       if (!SCRIPT_URL || !name) return;
@@ -1889,10 +2017,12 @@
       } catch (e) {}
     }
 
+
     async function handleLogin() {
       var name = (el('user-inp').value || '').trim();
       var pass = (el('user-pass').value || '').trim();
       var msgEl = el('user-login-msg');
+
 
       function showMsg(msg, isErr) {
         if (!msgEl) return;
@@ -1911,11 +2041,13 @@
         return;
       }
 
+
       var btn = el('user-start-btn');
       if (btn) {
         btn.textContent = 'Checking…';
         btn.disabled = true;
       }
+
 
       if (!SCRIPT_URL) {
         MAIN_USER = name;
@@ -1934,11 +2066,13 @@
         return;
       }
 
+
       var result = await verifyLogin(name, pass);
       if (btn) {
         btn.textContent = 'Log In →';
         btn.disabled = false;
       }
+
 
       if (result === 'ok') {
         MAIN_USER = name;
@@ -1969,10 +2103,12 @@
       }
     }
 
+
     function logout() {
       if (!confirm('Log out? You will need to enter your name and password next time.')) return;
       performLogout();
     }
+
 
     function performLogout() {
       MAIN_USER = '';
@@ -2002,6 +2138,7 @@
         if (msg) msg.style.display = 'none';
       }, 50);
     }
+
 
     async function changeUsername() {
       var oldPass = ((el('cfg-change-pass-for-name') || {}).value || '').trim();
@@ -2037,6 +2174,7 @@
       if (SCRIPT_URL) loadData();
     }
 
+
     async function changePassword() {
       var oldPass = ((el('cfg-old-password') || {}).value || '').trim();
       var newPass = ((el('cfg-new-password') || {}).value || '').trim();
@@ -2064,19 +2202,23 @@
       toast('Password changed successfully.', 'ok');
     }
 
+
     function updateCfgUsername() {
       var e2 = el('cfg-uname');
       if (e2) e2.textContent = MAIN_USER || '—';
     }
 
+
     function renderDeviceInfo() {
       updateCfgUsername();
     }
+
 
     function setBusy(delta) {
       activeTasks = Math.max(0, activeTasks + delta);
       updateSyncBtn();
     }
+
 
     function updateSyncBtn() {
       var sb = el('sync-btn');
@@ -2089,6 +2231,7 @@
         activeTasks > 0 ? 'Busy — wait for current action to finish' : 'Sync now';
     }
 
+
     function doSyncClick() {
       if (activeTasks > 0) {
         toast('Please wait for the current action to finish first.', 'inf');
@@ -2096,6 +2239,7 @@
       }
       loadData(true);
     }
+
 
     function speakKhmer(text) {
       text = (text || '').trim();
@@ -2126,11 +2270,13 @@
       });
     }
 
+
     function speakEnglish(text) {
       text = (text || '').trim();
       if (!text) return;
       tryWebSpeech(text, 'en-US');
     }
+
 
     function tryWebSpeech(text, lang) {
       if (!('speechSynthesis' in window)) {
@@ -2143,10 +2289,12 @@
       window.speechSynthesis.speak(utt);
     }
 
+
     function speakCurrentCard() {
       var r = studyDeck[studyIdx];
       if (r) speakKhmer(r.khmer || '');
     }
+
 
     function setStatus(state, msg) {
       var sp = el('spill'),
@@ -2158,9 +2306,11 @@
       sp.className = 'spill' + (state === 'spin-dot' ? ' syncing' : state === 'ok' ? ' s-ok' : state === 'err' ? ' s-err' : state === 'off' ? ' s-off' : state === 'imp' ? ' s-imp' : '');
     }
 
+
     function onSpillClick() {
       if (importState.active || deleteState.active || saveState.active) el('imp-prog-ovl').classList.add('open');
     }
+
 
     function updateImportProgress() {
       var pct = importState.total ? Math.round(importState.sent / importState.total * 100) : 0;
@@ -2176,6 +2326,7 @@
       if (det) det.textContent = importState.sent + '/' + importState.total + ' words' + (importState.failed ? ' (' + importState.failed + ' failed)' : '');
       setStatus('imp', 'Importing ' + importState.sent + '/' + importState.total + '…');
     }
+
 
     function updateDeleteProgress() {
       var pct = deleteState.total ? Math.round(deleteState.done / deleteState.total * 100) : 0;
@@ -2194,6 +2345,7 @@
       if (totalTasks > 0) setStatus('imp', deleteRemaining + ' word' + (deleteRemaining !== 1 ? 's' : '') + ' deleting…');
     }
 
+
     function triggerSaveState() {
       if (!saveState.active) {
         saveState.done = 0;
@@ -2204,6 +2356,7 @@
       }
       updateSaveProgress();
     }
+
 
     function updateSaveProgress() {
       var pct = saveState.total ? Math.round(saveState.done / saveState.total * 100) : 0;
@@ -2238,6 +2391,7 @@
       }
     }
 
+
     function populateCatDropdown(id, includeSpecial, currentVal) {
       var sel = el(id);
       if (!sel) return;
@@ -2256,12 +2410,14 @@
       sel.value = val;
     }
 
+
     function addOpt(sel, val, txt) {
       var opt = document.createElement('option');
       opt.value = val;
       opt.textContent = txt;
       sel.appendChild(opt);
     }
+
 
     function populateStudyFilter() {
       var sel = el('study-filter');
@@ -2277,6 +2433,7 @@
       sel.value = val;
     }
 
+
     function populateStudyPresetFilter() {
       var sel = el('study-preset-filter');
       if (!sel) return;
@@ -2291,6 +2448,7 @@
       addOpt(sel, '__nums__', '🔢 Numbers (0–100)');
       sel.value = val;
     }
+
 
     function onStudyCatChange(which) {
       var userSel = el('study-filter');
@@ -2312,6 +2470,7 @@
       }
     }
 
+
     function refreshAllCatDropdowns() {
       var vc = (el('view-cat-filter') || {}).value || ls('kv_view_cat') || 'All',
         fc = (el('f-cat') || {}).value || 'Words',
@@ -2325,6 +2484,7 @@
       populateStudyPresetFilter();
     }
 
+
     function openNewCatModal() {
       var inp = el('newcat-inp');
       if (inp) inp.value = '';
@@ -2334,6 +2494,7 @@
         if (inp) inp.focus();
       }, 100);
     }
+
 
     function addCustomCat() {
       var name = (el('newcat-inp').value || '').trim();
@@ -2354,6 +2515,7 @@
       toast('Category "' + name + '" added.', 'ok');
     }
 
+
     function removeCustomCat(name) {
       if (!confirm('Delete category "' + name + '"?')) return;
       customCats = customCats.filter(function(c) {
@@ -2366,9 +2528,11 @@
       toast('Category deleted.', 'ok');
     }
 
+
     function startEditCat(name) {
       renderCustomCatList(name);
     }
+
 
     function finishEditCat(oldName) {
       var safe = oldName.replace(/[^a-z0-9]/gi, '_'),
@@ -2393,6 +2557,7 @@
       toast('Renamed to "' + newName + '"', 'ok');
       syncCategoryToSheet('rename', oldName, newName);
     }
+
 
     function renderCustomCatList(editingName) {
       var box = el('custom-cat-list');
@@ -2425,6 +2590,7 @@
       });
     }
 
+
     function removeCatAny(name) {
       var PROTECTED = ['Words', 'Sentences'];
       if (PROTECTED.indexOf(name) !== -1) {
@@ -2455,6 +2621,7 @@
       toast('Category "' + name + '" deleted. Words moved to "Words".', 'ok');
     }
 
+
     function syncCategoryToSheet(action, name, newName) {
       if (!SCRIPT_URL) return Promise.resolve();
       var url = new URL(SCRIPT_URL);
@@ -2472,6 +2639,7 @@
       }).catch(function() {});
     }
 
+
     function applyCategoriesFromSheet(sheetCats) {
       customCats = sheetCats.filter(function(c) {
         return DEFAULT_CATS.indexOf(c) === -1;
@@ -2482,6 +2650,7 @@
       refreshAllCatDropdowns();
       renderCustomCatList();
     }
+
 
     function loadCategoriesFromSheet() {
       if (!SCRIPT_URL || !MAIN_USER) return;
@@ -2496,9 +2665,11 @@
         }).catch(function() {});
     }
 
+
     var DEFAULT_TAB_ORDER = ['view', 'add', 'trans', 'study', 'progress', 'ref', 'dash'];
     var TAB_ORDER_KEY = 'kv_tab_order';
     var tabOrder = safeJsonParse(ls(TAB_ORDER_KEY), null) || DEFAULT_TAB_ORDER.slice();
+
 
     function applyTabOrder() {
       var nav = document.querySelector('.nav');
@@ -2508,6 +2679,7 @@
         if (btn) nav.appendChild(btn);
       });
     }
+
 
     function buildTabOrderList() {
       var box = el('tab-order-list');
@@ -2525,6 +2697,7 @@
       });
     }
 
+
     function moveTab(idx, dir) {
       var newIdx = idx + dir;
       if (newIdx < 0 || newIdx >= tabOrder.length) return;
@@ -2536,6 +2709,7 @@
       buildTabOrderList();
     }
 
+
     function resetTabOrder() {
       if (!confirm('Reset tab order to default?')) return;
       tabOrder = DEFAULT_TAB_ORDER.slice();
@@ -2545,11 +2719,14 @@
       toast('Tab order reset.', 'ok');
     }
 
+
     function openStudySetModal() {
       toast("Study sets removed.", "inf");
     }
 
+
     function renderStudySetList() {}
+
 
     function createAndAddSet() {
       var name = (el('sset-new-name').value || '').trim();
@@ -2567,6 +2744,7 @@
       addToSet(id);
     }
 
+
     function addToSet(id) {
       var s = studySets.find(function(s) {
         return s.id === id;
@@ -2581,16 +2759,19 @@
       });
       saveStudySets();
 
+
       populateStudyFilter();
       toast('Added ' + added + ' words to "' + s.name + '"', 'ok');
       exitBulk();
     }
+
 
     function loadSettings() {
       try {
         var r = ls(SKEY);
         if (r) Object.assign(S, safeJsonParse(r, {}));
       } catch (e) {}
+
 
       function g(id) {
         return el(id);
@@ -2629,6 +2810,7 @@
       updateFsLabels();
     }
 
+
     function saveSettings() {
       function g(id) {
         return el(id);
@@ -2657,12 +2839,14 @@
       checkAndUnlock('customizer');
     }
 
+
     function applyDensity(silent) {
       var v = el('opt-density');
       if (v) S.density = v.value;
       document.body.classList.toggle('compact', S.density === 'compact');
       if (!silent) saveSettings();
     }
+
 
     function applyEnFontSize(silent) {
       var v = parseInt((el('opt-enfontsize') || {}).value) || S.enFontSize || 14;
@@ -2679,6 +2863,7 @@
       }
     }
 
+
     function applyKhFontSize(silent) {
       var v = parseInt((el('opt-khfontsize') || {}).value) || S.khFontSize || 16;
       var numEl = el('opt-khfontsize-num');
@@ -2693,6 +2878,7 @@
       }
     }
 
+
     function applyKhFont(silent) {
       var v = (el('opt-khfont') || {}).value || S.khFont || "'Noto Sans Khmer',system-ui,sans-serif";
       S.khFont = v;
@@ -2702,12 +2888,14 @@
       if (!silent) saveSettings();
     }
 
+
     function applyEnFont(silent) {
       var v = (el('opt-enfont') || {}).value || S.enFont || "system-ui,-apple-system,'Segoe UI',sans-serif";
       S.enFont = v;
       document.documentElement.style.setProperty('--en-font', v);
       if (!silent) saveSettings();
     }
+
 
     function playClickSound() {
       try {
@@ -2732,12 +2920,14 @@
       } catch (e) {}
     }
 
+
     function skipWriting() {
       if (typeof writeIdx !== 'undefined' && typeof writeDeck !== 'undefined' && writeDeck && writeDeck.length) {
         writeIdx = (writeIdx + 1) % writeDeck.length;
         showWriteCard();
       }
     }
+
 
     function skipListening() {
       if (typeof listenIdx !== 'undefined' && typeof listenDeck !== 'undefined' && listenDeck && listenDeck.length) {
@@ -2746,12 +2936,14 @@
       }
     }
 
+
     function initStudyPage() {
       trackStudySessionTime();
       initStudy();
       startWriting();
       startListening();
     }
+
 
     // Counts sessions opened before 8am / after 10pm Cambodia time, for the
     // "Early Bird" / "Night Owl" achievements (5 times each). Only counts if
@@ -2769,6 +2961,7 @@
       }
     }
 
+
     function applyShowRo(silent) {
       var v = el('opt-showro');
       if (v) S.showRo = v.checked;
@@ -2776,12 +2969,14 @@
       if (!silent) saveSettings();
     }
 
+
     function updateFsLabels() {
       var e1 = el('en-fs-label'),
         e2 = el('kh-fs-label');
       if (e1) e1.textContent = (parseInt((el('opt-enfontsize') || {}).value) || 14) + 'px';
       if (e2) e2.textContent = (parseInt((el('opt-khfontsize') || {}).value) || 16) + 'px';
     }
+
 
     function applyColumns(silent) {
       ['en', 'kh', 'ro', 'no', 'ca'].forEach(function(c) {
@@ -2793,11 +2988,13 @@
       if (!silent) saveSettings();
     }
 
+
     function applyOffline() {
       saveSettings();
       if (S.offlineMode) loadFromCache();
       else loadData();
     }
+
 
     function applyAutoSync() {
       saveSettings();
@@ -2809,6 +3006,7 @@
         if (!S.offlineMode) loadData();
       }, S.autoSync * 1000);
     }
+
 
     function buildAccentRow() {
       var row = el('accent-row');
@@ -2836,6 +3034,7 @@
       });
     }
 
+
     function applyAccent(key, silent) {
       S.accent = key;
       var p = ACCENT_PRESETS[key] || ACCENT_PRESETS.purple;
@@ -2847,6 +3046,7 @@
       });
       if (!silent) saveSettings();
     }
+
 
     function openCfg() {
       var can = el('cfg-aq-name');
@@ -2862,10 +3062,12 @@
       el('cfg-ovl').classList.add('open');
     }
 
+
     function applyVersionLabel() {
       var v = el('cfg-version-label');
       if (v) v.textContent = 'v' + APP_VERSION;
     }
+
 
     // Checks whether the app was updated to a new version since the user's
     // last visit. If so, fires a bottom-right toast (like an achievement
@@ -2881,13 +3083,14 @@
       lsSet(LAST_SEEN_VERSION_KEY, APP_VERSION);
     }
 
+
     function showVersionUpdateToast(oldV, newV) {
       var box = el('tbox');
       if (!box) return;
       var div = document.createElement('div');
       div.className = 'toast achv-toast';
       div.style.cursor = 'pointer';
-      div.innerHTML = '<span class="achv-toast-icon">🚀</span><span><strong>App updated!</strong> Now on v' + esc(newV) + '<br><span style="font-size:.65rem;opacity:.75;text-decoration:underline">Click to see the change log</span></span>';
+      div.innerHTML = '<span class="achv-toast-icon">ℹ️</span><span><strong>App updated!</strong> Now on v' + esc(newV) + '<br><span style="font-size:.65rem;opacity:.75;text-decoration:underline">Click to see the change log</span></span>';
       div.onclick = function() {
         window.open(CHANGELOG_URL, '_blank');
         checkAndUnlock('curious');
@@ -2898,9 +3101,11 @@
       }, 8000);
     }
 
+
     function closeCfg() {
       el('cfg-ovl').classList.remove('open');
     }
+
 
     function saveCfg() {
       setTimeout(updateSyncBtn, 100);
@@ -2917,6 +3122,7 @@
       } else toast('Enter a valid URL.', 'err');
     }
 
+
     function saveCache(rows) {
       try {
         lsSet(CACHE_KEY, JSON.stringify(rows));
@@ -2924,6 +3130,7 @@
       } catch (e) {}
       updateCacheInfo();
     }
+
 
     function loadFromCache() {
       try {
@@ -2941,6 +3148,7 @@
       }
     }
 
+
     function clearCache() {
       lsSet(CACHE_KEY, '');
       lsSet(SYNC_KEY, '');
@@ -2949,6 +3157,7 @@
       toast('Cache cleared', 'inf');
     }
 
+
     function updateCacheInfo() {
       var t = ls(SYNC_KEY),
         ci = el('cfg-cache-info'),
@@ -2956,6 +3165,7 @@
       if (ci) ci.textContent = t ? ('Cached ' + new Date(t).toLocaleString()) : 'No cache yet';
       if (sl) sl.textContent = t ? new Date(t).toLocaleString() : 'Never';
     }
+
 
     function applyUserBadge() {
       var b = el('ubadge');
@@ -2967,6 +3177,7 @@
       } else b.style.display = 'none';
     }
 
+
     function setReadOnly(name) {
       readOnlyMode = true;
       document.body.classList.add('read-only');
@@ -2974,10 +3185,12 @@
       if (rbn) rbn.textContent = name;
     }
 
+
     function exitReadOnly() {
       readOnlyMode = false;
       document.body.classList.remove('read-only');
     }
+
 
     function returnToMyAccount() {
       CURRENT_USER = MAIN_USER;
@@ -2989,6 +3202,7 @@
       toast('Back to your account.', 'ok');
     }
 
+
     function openAccountQuick() {
       var aqn = el('aq-name');
       if (aqn) aqn.textContent = MAIN_USER || '—';
@@ -2996,6 +3210,7 @@
       buildAccountUserList();
     }
     var cachedOtherUsers = [];
+
 
     function buildCfgUserList(names) {
       var box = el('cfg-user-list');
@@ -3028,6 +3243,7 @@
       });
     }
 
+
     function fetchOtherUsersForSettings() {
       var btn = el('cfg-refresh-btn');
       if (btn) btn.classList.add('loading');
@@ -3052,6 +3268,7 @@
         toast('Failed: ' + err.message, 'err');
       });
     }
+
 
     function buildAccountUserList(names) {
       var box = el('aq-user-list');
@@ -3085,6 +3302,7 @@
       });
     }
 
+
     function fetchOtherUsersForPopup() {
       var btn = el('aq-refresh-btn');
       if (btn) btn.classList.add('loading');
@@ -3109,6 +3327,7 @@
       });
     }
 
+
     function viewAsUser(name) {
       closeCfg();
       CURRENT_USER = name;
@@ -3117,6 +3336,7 @@
       loadData();
       toast('Viewing ' + name + ' (read-only)', 'inf');
     }
+
 
     function checkStreakReset() {
       var sd = safeJsonParse(ls(STREAK_KEY), {
@@ -3136,6 +3356,7 @@
         lsSet(STREAK_KEY, JSON.stringify(sd));
       }
     }
+
 
     // Best-effort mitigation for Android Chrome's edge-swipe "back" gesture.
     // This CANNOT be fully blocked from a web page — it's an OS/browser-chrome
@@ -3157,6 +3378,7 @@
         });
       } catch (e) {}
     }
+
 
     function init() {
       checkStreakReset();
@@ -3237,6 +3459,7 @@
       });
     }
 
+
     el('user-inp').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         var p = el('user-pass');
@@ -3255,15 +3478,18 @@
       if (e.key === 'Enter') addCustomCat();
     });
 
+
     function closeStep2() {
       el('user-step2-ovl').classList.remove('open');
       onboardComplete(true);
     }
 
+
     function closeStep2AndImport() {
       el('user-step2-ovl').classList.remove('open');
       openImportModal();
     }
+
 
     function onboardComplete(registerNew) {
       if (registerNew !== false) {
@@ -3303,6 +3529,7 @@
         goPage('add', 'nav-add');
       }
     }
+
 
     function loadData(force) {
       var user = CURRENT_USER || MAIN_USER;
@@ -3376,6 +3603,7 @@
         });
     }
 
+
     function mergeAll(data) {
       var out = [],
         seen = {};
@@ -3392,9 +3620,11 @@
       return out;
     }
 
+
     var queueRunning = false;
     var _queueBatchSaved = 0;
     var _queueWasEmpty = true;
+
 
     function processPendingQueue() {
       if (queueRunning || !SCRIPT_URL || !pendingQueue.length || importState.active) return;
@@ -3412,6 +3642,7 @@
       var item = pendingQueue[0];
       var _dupKey = (item.khmer || '').trim() + '|' + (item.english || '').trim().toLowerCase();
       // FIX: skip the allRows check when in readOnly mode — allRows is the *other user's* words,
+
 
       var _alreadyOnSheet = !readOnlyMode && allRows.some(function(r) {
         return r.id &&
@@ -3471,15 +3702,18 @@
       });
     }
 
+
     function buildAddUrl(data) {
       var url = new URL(SCRIPT_URL);
       url.searchParams.set('action', 'addWord');
+
 
       ['english', 'khmer', 'romanization', 'notes', 'category', 'tab', 'user', 'reqId', 'dateAdded'].forEach(function(f) {
         url.searchParams.set(f, data[f] || '');
       });
       return url.toString();
     }
+
 
     function goPage(id, navId) {
       document.querySelectorAll('.page').forEach(function(p) {
@@ -3499,6 +3733,7 @@
       }
     }
 
+
     function setQuickSort(mode) {
       quickSort = mode;
       sortCol = -1;
@@ -3509,6 +3744,7 @@
       if (sc) sc.classList.add('active');
       render();
     }
+
 
     function clickSort(col) {
       if (sortCol === col) sortAsc = !sortAsc;
@@ -3524,12 +3760,14 @@
       render();
     }
 
+
     function updateSortTH() {
       document.querySelectorAll('#tbl thead th').forEach(function(th, i) {
         th.classList.remove('sa', 'sd');
         if (i - 1 === sortCol) th.classList.add(sortAsc ? 'sa' : 'sd');
       });
     }
+
 
     function clickFavSort(col) {
       if (favSortCol === col) favSortAsc = !favSortAsc;
@@ -3539,6 +3777,7 @@
       }
       renderFav();
     }
+
 
     function toggleBlur(which) {
       document.querySelectorAll('td.peeked').forEach(function(td) {
@@ -3556,10 +3795,12 @@
       if (bk) bk.classList.toggle('active', blurMode === 'kh');
     }
 
+
     function toggleBulk() {
       if (bulkMode) exitBulk();
       else enterBulk();
     }
+
 
     function enterBulk() {
       bulkMode = true;
@@ -3570,6 +3811,7 @@
       updateBulkBar();
       render();
     }
+
 
     function exitBulk() {
       bulkMode = false;
@@ -3582,10 +3824,12 @@
       render();
     }
 
+
     function updateBulkBar() {
       var bi = el('bulk-info');
       if (bi) bi.textContent = selectedKeys.size + ' selected';
     }
+
 
     function selectAll(checked) {
       var rows = getRows();
@@ -3597,9 +3841,11 @@
       render();
     }
 
+
     // bulkFav() removed — favoriting now only happens via long-press → edit
     // sheet → ⭐ button (toggleEditStar), per design decision to have a
     // single, deliberate favoriting path.
+
 
     function openBulkCat() {
       if (!selectedKeys.size) {
@@ -3611,6 +3857,7 @@
       if (bc) bc.textContent = selectedKeys.size;
       el('bulkcat-ovl').classList.add('open');
     }
+
 
     function applyBulkCat() {
       var cat = (el('bulkcat-sel') || {}).value || 'Words',
@@ -3635,6 +3882,7 @@
             var url = new URL(SCRIPT_URL);
             url.searchParams.set('action', 'updateWord');
 
+
             ['english', 'khmer', 'romanization', 'notes', 'category', 'rowIndex'].forEach(function(f) {
               url.searchParams.set(f, r[f] || '');
             });
@@ -3654,6 +3902,7 @@
       exitBulk();
       render();
     }
+
 
     function bulkDelete() {
       if (!selectedKeys.size) {
@@ -3692,6 +3941,7 @@
           };
           updateDeleteProgress();
 
+
           function runNextDel() {
             if (!dq.length) {
               deleteState.active = false;
@@ -3722,12 +3972,14 @@
       }
     }
 
+
     function toggleFav(r) {
       var k = wordKey(r);
       if (favorites.has(k)) favorites.delete(k);
       else favorites.add(k);
       saveFavorites();
     }
+
 
     function toggleEditStar() {
       if (!editRow) return;
@@ -3737,6 +3989,7 @@
       render();
       renderFav();
     }
+
 
     function renderFav() {
       var q = ((el('fq') || {}).value || '').trim().toLowerCase();
@@ -3810,6 +4063,7 @@
       if (fe) fe.style.display = rows.length === 0 ? 'block' : 'none';
     }
 
+
     function getRows() {
       var q = ((el('q') || {}).value || '').trim().toLowerCase(),
         cat = ((el('view-cat-filter') || {}).value) || 'All';
@@ -3847,6 +4101,7 @@
       }
       return rows;
     }
+
 
     function render() {
       var rows = getRows(),
@@ -3939,6 +4194,7 @@
       }
     }
 
+
     function mkTd(cls, txt) {
       var td = document.createElement('td');
       if (cls) td.className = cls;
@@ -3946,14 +4202,17 @@
       return td;
     }
 
+
     function addRowHandlers(tr, row) {
       var timer = null,
         didLong = false;
+
 
       function onStart() {
         didLong = false;
         timer = setTimeout(function() {
           didLong = true;
+
 
           if (window.getSelection) window.getSelection().removeAllRanges();
           document.body.style.webkitUserSelect = 'none';
@@ -3971,12 +4230,14 @@
           });
           openEditSheet(row);
 
+
           setTimeout(function() {
             var a = document.activeElement;
             if (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.tagName === 'SELECT')) a.blur();
           }, 60);
         }, 520);
       }
+
 
       function onCancel() {
         if (timer) {
@@ -4003,6 +4264,7 @@
         didLong = false;
       };
     }
+
 
     function addCellHandlers(td) {
       td.addEventListener('click', function() {
@@ -4035,12 +4297,14 @@
       });
     }
 
+
     function isCellBlurred(td) {
       if (!blurMode || td.classList.contains('peeked')) return false;
       if (blurMode === 'en') return td.classList.contains('col-en') || td.classList.contains('col-ro') || td.classList.contains('col-no') || td.classList.contains('col-ca');
       if (blurMode === 'kh') return td.classList.contains('col-kh') || td.classList.contains('col-ro') || td.classList.contains('col-no') || td.classList.contains('col-ca');
       return false;
     }
+
 
     function expandNote(e, btn) {
       e.stopPropagation();
@@ -4054,6 +4318,7 @@
       btn.textContent = open ? '▾' : '▴';
       td.classList.toggle('expanded', !open);
     }
+
 
     function openEditSheet(row) {
       editRow = row;
@@ -4075,14 +4340,17 @@
       el('sovl').classList.add('open');
     }
 
+
     function closeSheet() {
       el('sovl').classList.remove('open');
       editRow = null;
     }
 
+
     function sovlBg(e) {
       if (e.target === el('sovl')) closeSheet();
     }
+
 
     function saveEdit() {
       if (!editRow || readOnlyMode) {
@@ -4093,6 +4361,7 @@
         toast('Connect your sheet in ⚙️ first.', 'err');
         return;
       }
+
 
       if (!editRow.rowIndex && !editRow.id) {
         toast('Word not yet synced to sheet — wait a moment then try again.', 'inf');
@@ -4109,6 +4378,7 @@
       editRow.notes = no;
       editRow.category = cat;
 
+
       var _queueItem = {
         id: editRow.id || '',
         rowIndex: editRow.rowIndex || '',
@@ -4121,10 +4391,12 @@
         user: CURRENT_USER || MAIN_USER
       };
 
+
       saveCache(allRows);
       render();
       renderFav();
       closeSheet();
+
 
       setStatus('imp', '1 edit saving\u2026');
       setBusy(1);
@@ -4133,9 +4405,11 @@
       processEditQueue();
     }
 
+
     var _editQueue = [];
     var _editQueueRunning = false;
     var _editBatchTotal = 0;
+
 
     function processEditQueue() {
       if (_editQueueRunning || !_editQueue.length || !SCRIPT_URL) return;
@@ -4174,6 +4448,7 @@
       });
     }
 
+
     function setAddLoading(v) {
       var btn = el('add-btn'),
         lbl = el('add-lbl'),
@@ -4183,6 +4458,7 @@
       if (sp) sp.style.display = v ? '' : 'none';
     }
 
+
     function setEditLoading(v) {
       var btn = el('edit-btn'),
         lbl = el('edit-lbl'),
@@ -4191,6 +4467,7 @@
       if (lbl) lbl.textContent = v ? 'Saving\u2026' : '\uD83D\uDCBE Save to Sheet';
       if (sp) sp.style.display = 'none';
     }
+
 
     function deleteEntry() {
       if (!editRow || readOnlyMode) return;
@@ -4238,6 +4515,7 @@
       }
     }
 
+
     function addWordFromOtherSheet() {
       if (!editRow || !MAIN_USER) {
         toast('Not signed in.', 'err');
@@ -4256,6 +4534,7 @@
         toast('Already in your queue!', 'inf');
         return;
       }
+
 
       var item = {
         english: en,
@@ -4279,6 +4558,7 @@
       closeSheet();
       processPendingQueue();
     }
+
 
     function submitAdd(e) {
       e.preventDefault();
@@ -4365,9 +4645,11 @@
       processPendingQueue();
     }
 
+
     function saveSrs() {
       lsSet(SRS_KEY, JSON.stringify(srsData));
     }
+
 
     function getSrsEntry(k) {
       if (!srsData[k]) srsData[k] = {
@@ -4378,6 +4660,7 @@
       };
       return srsData[k];
     }
+
 
     function updateSrs(k, rating) {
       var d = getSrsEntry(k),
@@ -4401,17 +4684,20 @@
       saveSrs();
     }
 
+
     function isSrsDue(k) {
       var d = srsData[k];
       if (!d || d.nextReview === null) return true;
       return Date.now() >= d.nextReview;
     }
 
+
     function countDue() {
       return allRows.filter(function(r) {
         return isSrsDue(wordKey(r));
       }).length;
     }
+
 
     var studyDeck = [],
       studyIdx = 0,
@@ -4421,6 +4707,7 @@
       sessionM = 0,
       sessionU = 0;
 
+
     function toggleStudyDir() {
       studyDir = (studyDir === 'kh' ? 'en' : 'kh');
       S.studyDir = studyDir;
@@ -4429,16 +4716,20 @@
       showCard();
     }
 
+
     function updateStudyMethodDescs() {}
+
 
     function updateDirBtn() {
       var btn = el('study-dir-btn');
       if (btn) btn.textContent = studyDir === 'kh' ? 'Khmer → English' : 'English → Khmer';
     }
 
+
     var _dictAddItems = [];
     var _confStudyLevel = null;
     var _confStudyPool = [];
+
 
     function buildMcChoices(correct, pool, dir) {
       var wrong = pool.filter(function(x) {
@@ -4468,6 +4759,7 @@
       return html;
     }
 
+
     function mcSelect(btn) {
       if (cardFlipped) return;
       cardFlipped = true;
@@ -4480,6 +4772,7 @@
       pendingMcRating = isCorr ? 2 : 0;
     }
 
+
     function addFromTranslation(en, kh) {
       goPage('add', 'nav-add');
       var fe = el('f-en');
@@ -4488,6 +4781,7 @@
       if (fk) fk.value = kh || '';
       toast('Word pre-filled — review and send! ✓', 'ok');
     }
+
 
     async function exportAllData() {
       var EXPORT_KEYS = [
@@ -4545,6 +4839,7 @@
       toast('Backup downloaded ✓ (words stay on your sheet)', 'ok');
     }
 
+
     function importAllData() {
       var input = document.createElement('input');
       input.type = 'file';
@@ -4580,6 +4875,7 @@
       };
       input.click();
     }
+
 
     function initStudy() {
       populateStudyFilter();
@@ -4682,6 +4978,7 @@
         return Math.random() - .5;
       });
 
+
       if (confFilter === 'got') pool = pool.filter(function(r) {
         return confidence[wordKey(r)] === 2;
       });
@@ -4717,6 +5014,7 @@
       if (fsb) fsb.style.display = studyDeck.length > 0 ? 'block' : 'none';
       if (studyDeck.length > 0) showCard();
     }
+
 
     function showCard() {
       var r = studyDeck[studyIdx];
@@ -4762,6 +5060,7 @@
       if (sp) sp.textContent = (studyIdx + 1) + ' / ' + studyDeck.length;
     }
 
+
     function flipCard() {
       if (S.mc) return;
       if (cardFlipped) return;
@@ -4794,6 +5093,7 @@
       if (r.khmer) speakKhmer(r.khmer);
     }
 
+
     function rateCard(rating) {
       var r = studyDeck[studyIdx];
       if (!r) return;
@@ -4814,12 +5114,14 @@
       nextCard();
     }
 
+
     function prevCard() {
       if (studyIdx > 0) {
         studyIdx--;
         showCard();
       }
     }
+
 
     function nextCard() {
       if (pendingMcRating !== null) {
@@ -4834,6 +5136,7 @@
       } else showSessionSummary();
     }
 
+
     function studyWeak() {
       var rb = (parseInt(ls('kv_reset_btn') || '0')) + 1;
       lsSet('kv_reset_btn', String(rb));
@@ -4842,6 +5145,7 @@
       if (el('study-preset-filter')) el('study-preset-filter').value = '__weak__';
       initStudy();
     }
+
 
     function showSessionSummary() {
       var fc = el('flashcard'),
@@ -4869,6 +5173,7 @@
       }
     }
 
+
     function updateStudyStreak() {
       function khDate(offsetDays) {
         var d = new Date(Date.now() + 7 * 3600000 + (offsetDays || 0) * 86400000);
@@ -4893,7 +5198,9 @@
       checkAndUnlock('marathon');
     }
 
+
     var STATS_SAVED_DATE_KEY = 'kv_stats_saved_date';
+
 
     function renderProgress() {
       var pgNote = el('pg-stats-note');
@@ -4915,6 +5222,7 @@
         if (confidence[wordKey(r)] === 2) mastered++;
         if (confidence[wordKey(r)] !== undefined) studiedCount++;
       });
+
 
       function sv(id, v) {
         var e = el(id);
@@ -4952,6 +5260,7 @@
       sv('pg-kinda', readOnlyMode ? '——' : kinda);
       sv('pg-unkn', readOnlyMode ? '——' : unkn);
       sv('pg-unstudied', readOnlyMode ? '——' : unstudied);
+
 
       function buildShelf(sid, count, milestones) {
         var shelf = el(sid);
@@ -5022,6 +5331,7 @@
       if (hm) {
         hm.innerHTML = '';
 
+
         var _hmOff = 7 * 3600000;
         var today = new Date(Date.now() + _hmOff),
           dc = {};
@@ -5049,6 +5359,7 @@
       }
       if (!readOnlyMode) saveUserStatsToSheet();
     }
+
 
     function saveUserStatsToSheet() {
       if (!SCRIPT_URL || !MAIN_USER) return;
@@ -5104,6 +5415,7 @@
       fetch(url).catch(function() {});
     }
 
+
     function loadUserStatsFromSheet(userName) {
       if (!SCRIPT_URL || !userName) return;
       fetch(SCRIPT_URL + '?action=getUserStats&user=' + encodeURIComponent(userName))
@@ -5113,6 +5425,7 @@
         .then(function(j) {
           if (!j.success || !j.stats) return;
           var s = j.stats;
+
 
           function sv2(id, v) {
             var e = el(id);
@@ -5134,6 +5447,7 @@
         }).catch(function() {});
     }
 
+
     function renderAchvShelfForUser(unlockedIds) {
       var shelf = el('achv-shelf');
       if (!shelf) return;
@@ -5149,9 +5463,12 @@
       });
     }
 
+
     var _dashLoadInFlight = false;
 
+
     var _dashLastLoadTime = 0;
+
 
     // PERF: Dash tab previously re-fetched both getStats and getData(All
     // Words) from the network on *every* tap of the Dash nav button, even
@@ -5199,9 +5516,11 @@
       });
     }
 
+
     function renderDashboard(stats, awData) {
       var cards = el('dash-stat-cards');
       if (cards) {
+
 
         var _recentRows = (awData && awData.data && awData.data['📋 All Words']) || [];
         var _weekStart = currentWeekStartKH();
@@ -5220,6 +5539,7 @@
           }
         });
 
+
         function _mkCard(name, count, unit) {
           return '<span style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.88em;max-width:100%">' + esc(name) + '</span>' +
             '<span style="display:block;font-size:.72em;opacity:.65">(' + count + ' ' + unit + ')</span>';
@@ -5231,6 +5551,7 @@
           lsSet(COMPETITIVE_KEY, '1');
           checkAndUnlock('competitive');
         }
+
 
         var _streakVal = stats.topStreakUser ? _mkCard(stats.topStreakUser, stats.topStreakCount || 0, 'days') : '—';
         cards.innerHTML = [
@@ -5245,6 +5566,7 @@
       var usersEl = el('dash-users');
       if (usersEl) {
         usersEl.innerHTML = '';
+
 
         var users = (stats.users || []).slice().sort(function(a, b) {
           if (a.name === MAIN_USER && b.name !== MAIN_USER) return -1;
@@ -5323,6 +5645,7 @@
       var updEl = el('dash-updated');
       if (updEl) updEl.textContent = 'Last refreshed: ' + new Date().toLocaleString();
     }
+
 
     function buildReferencePages() {
       var allCons = [{
@@ -5921,6 +6244,7 @@
         }
       ];
 
+
       function buildGrid5(id, items) {
         var g = el(id);
         if (!g) return;
@@ -6009,6 +6333,7 @@
       }
     }
 
+
     var dictState = {
       results: {},
       query: '',
@@ -6017,20 +6342,24 @@
       activeTab: 'summary'
     };
 
+
     function dictIsKhmer(text) {
       return /[\u1780-\u17FF]/.test(text);
     }
+
 
     function dictClean(text) {
       if (!text) return '';
       return text.replace(/\[([^\]]+)\]/g, '$1').replace(/<[^>]*>/g, '').trim();
     }
 
+
     function dictHL(text, term) {
       if (!term) return text;
       var re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
       return text.replace(re, '<span class="trans-hl">$1</span>');
     }
+
 
     async function dictFetchApi1(word, from, to) {
       var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + from + '&tl=' + to + '&dt=t&dt=bd&dt=ex&q=' + encodeURIComponent(word);
@@ -6100,6 +6429,7 @@
     // of mirrors makes API3 far less likely to fail outright.
     var LINGVA_MIRRORS = ['https://lingva.garudalinux.org', 'https://lingva.ml', 'https://translate.plausibility.cloud'];
 
+
     async function dictFetchApi3(word, from, to) {
       var lastErr = null;
       for (var i = 0; i < LINGVA_MIRRORS.length; i++) {
@@ -6139,10 +6469,12 @@
       throw lastErr || new Error('Failed');
     }
 
+
     // Public LibreTranslate mirrors, tried in order. The original hardcoded
     // libretranslate.de instance now frequently rate-limits or rejects
     // keyless requests; other public mirrors don't require an API key.
     var LIBRETRANSLATE_MIRRORS = ['https://libretranslate.de', 'https://translate.terraprint.co', 'https://libretranslate.pussthecat.org'];
+
 
     async function dictFetchApi4(word, from, to) {
       var lastErr = null;
@@ -6203,6 +6535,7 @@
         }
       };
     }
+
 
     async function dictFetchAll(word) {
       var from = dictIsKhmer(word) ? 'km' : 'en',
@@ -6265,13 +6598,16 @@
       if (ok === 0) throw new Error('All 5 APIs failed. Check your internet connection.');
     }
 
+
     function dictRenderLoading() {
       el('dict-content').innerHTML = '<div class="trans-loading"><div class="trans-spinner"></div><p>Querying 5 translation APIs simultaneously…</p></div>';
     }
 
+
     function dictRenderError(msg) {
       el('dict-content').innerHTML = '<div class="trans-error-box"><h3>⚠ Search Error</h3><p>' + esc(msg) + '</p></div>';
     }
+
 
     function dictRenderResults() {
       _dictAddItems = [];
@@ -6287,6 +6623,7 @@
       else html += dictRenderMeta(results);
       el('dict-content').innerHTML = html;
     }
+
 
     function dictRenderSummary(results, query) {
       var success = Object.values(results).filter(function(r) {
@@ -6336,6 +6673,7 @@
       return html;
     }
 
+
     function dictRenderAll(results, query) {
       var success = Object.entries(results).filter(function(x) {
         return x[1].status === 'success';
@@ -6377,6 +6715,7 @@
       return html;
     }
 
+
     function dictRenderMeta(results) {
       var html = '<div style="overflow-x:auto"><table class="trans-meta-table"><tr><th>API</th><th>Status</th><th>Results</th><th>Details</th></tr>';
       var success = [],
@@ -6397,7 +6736,9 @@
       return html;
     }
 
+
     function dictSpeakItem(item) {
+
 
       var kh = (item && item.kh) || '';
       var en = (item && item.en) || '';
@@ -6413,6 +6754,7 @@
       }
     }
 
+
     async function dictSearch(word) {
       word = (word || '').trim();
       if (!word) return;
@@ -6426,6 +6768,7 @@
         dictRenderError(e.message);
       }
     }
+
 
     function openImportModal() {
       el('csv-file-name').textContent = '';
@@ -6441,10 +6784,12 @@
       el('import-ovl').classList.add('open');
     }
 
+
     function closeImportModal() {
       el('import-ovl').classList.remove('open');
       if (MAIN_USER && !SCRIPT_URL) onboardComplete(true);
     }
+
 
     function handleCsvFile(event) {
       var file = event.target.files[0];
@@ -6475,6 +6820,7 @@
                 return (h || '').trim();
               });
 
+
               function fc(name) {
                 return header.findIndex(function(h) {
                   return h.toLowerCase() === name.toLowerCase();
@@ -6493,6 +6839,7 @@
               var _p = function(x) {
                 return x < 10 ? '0' + x : String(x);
               };
+
 
               var _khNow = new Date(Date.now() + 7 * 3600000);
               csvParsed = [];
@@ -6555,6 +6902,7 @@
       reader.readAsText(file, 'UTF-8');
     }
 
+
     function showCsvErr(msg) {
       var e = el('csv-err');
       if (e) {
@@ -6564,6 +6912,7 @@
       el('csv-import-btn').disabled = true;
       el('csv-import-btn').style.opacity = '.5';
     }
+
 
     function parseCSV(text) {
       var rows = [],
@@ -6601,6 +6950,7 @@
       });
     }
 
+
     function confirmImport() {
       if (!csvParsed.length) return;
       var words = csvParsed.slice();
@@ -6636,6 +6986,7 @@
       };
       setBusy(1);
       updateImportProgress();
+
 
       function sendChunk(ci) {
         if (ci >= chunks.length) {
@@ -6713,6 +7064,7 @@
       blobDownload(csv, filename);
     }
 
+
     function blobDownload(content, filename) {
       var blob = new Blob([content], {
         type: 'text/csv;charset=utf-8'
@@ -6729,6 +7081,7 @@
       }, 1000);
       toast('CSV downloaded. ✓', 'ok');
     }
+
 
     function openConfStudy(confLevel) {
       // C5: show word list modal first; user can then press Study
@@ -6766,6 +7119,7 @@
       ovl.classList.add('open');
     }
 
+
     function _studyConfWords() {
       var ovl = el('conf-words-ovl');
       if (!ovl) return;
@@ -6793,6 +7147,7 @@
       initStudyPage();
     }
 
+
     function resetConfidence() {
       if (!confirm('Reset all confidence and SRS ratings?')) return;
       confidence = {};
@@ -6803,11 +7158,13 @@
       renderProgress();
     }
 
+
     function _srchClear(inpId, btnId) {
       var inp = el(inpId);
       var btn = el(btnId);
       if (btn) btn.style.display = (inp && inp.value.length > 0) ? 'block' : 'none';
     }
+
 
     function toast(msg, type) {
       var box = el('tbox');
@@ -6821,7 +7178,9 @@
       }, 3500);
     }
 
+
     // ── Writing / Spelling mode ───────────────────────────────────────────
+
 
     var writeDeck = [],
       writeIdx = 0,
@@ -6829,6 +7188,7 @@
     var listenDeck = [],
       listenIdx = 0,
       listenChecked = false;
+
 
     function startWriting() {
       var src = (studyDeck && studyDeck.length > 0) ? studyDeck : allRows;
@@ -6845,11 +7205,13 @@
       showWriteCard();
     }
 
+
     function speakWriteCard() {
       // C3: speak the Khmer side of the current writing card
       var r = writeDeck[writeIdx];
       if (r && r.khmer) speakKhmer(r.khmer);
     }
+
 
     function showWriteCard() {
       writeChecked = false;
@@ -6878,6 +7240,7 @@
       }
       if (res) res.style.display = 'none';
     }
+
 
     function checkWriting() {
       var r = writeDeck[writeIdx];
@@ -6912,6 +7275,7 @@
       if (btn) btn.textContent = 'Next Word \u2192';
     }
 
+
     function prevWriting() {
       writeChecked = false;
       var btn = el('write-check-btn');
@@ -6921,7 +7285,9 @@
       showWriteCard();
     }
 
+
     // ── Listening mode ────────────────────────────────────────────────────
+
 
     function startListening() {
       var src = (studyDeck && studyDeck.length > 0) ? studyDeck : allRows;
@@ -6936,6 +7302,7 @@
       var pb = el('listen-play-btn');
       if (pb) pb.style.display = 'block';
     }
+
 
     function showListenCard() {
       listenChecked = false;
@@ -6965,6 +7332,7 @@
       if (res) res.style.display = 'none';
     }
 
+
     function playCurrentListenCard() {
       var r = listenDeck[listenIdx];
       if (!r || !r.khmer) return;
@@ -6981,6 +7349,7 @@
         } catch (e) {}
       }, 80);
     }
+
 
     function checkListening() {
       var r = listenDeck[listenIdx];
@@ -7015,6 +7384,7 @@
       if (cbtn) cbtn.textContent = 'Next Word \u2192';
     }
 
+
     function prevListening() {
       listenChecked = false;
       var cbtn = el('listen-check-btn');
@@ -7023,6 +7393,7 @@
       listenIdx = (listenIdx - 1 + listenDeck.length) % listenDeck.length;
       showListenCard();
     }
+
 
     function enterFsFromOverlay() {
       var ov = el('fs-overlay');
@@ -7033,6 +7404,7 @@
         toast('Full screen not supported here.', 'inf');
       });
     }
+
 
     function toggleFullscreen() {
       var de = document.documentElement;
@@ -7047,12 +7419,14 @@
       }
     }
 
+
     function _updateFsBtn() {
       var btn = el('fullscreen-btn');
       if (btn) btn.textContent = (document.fullscreenElement || document.webkitFullscreenElement) ? '\u2715 Exit Full Screen' : '\u26F6 Full Screen';
     }
     document.addEventListener('fullscreenchange', _updateFsBtn);
     document.addEventListener('webkitfullscreenchange', _updateFsBtn);
+
 
     function _onReady() {
       applyTheme(ls(THEME_KEY) || 'dark');
@@ -7062,6 +7436,7 @@
         CURRENT_USER = MAIN_USER;
         applyUserBadge();
         updateCfgUsername();
+
 
         try {
           var ui = el('user-inp'),
@@ -7077,8 +7452,10 @@
             msgEl.style.border = '1px solid rgba(255,200,0,.2)';
           }
 
+
           var ov = el('user-ovl');
           if (ov) ov.classList.add('open');
+
 
           setTimeout(function() {
             if (up) up.focus();
@@ -7094,6 +7471,7 @@
       loadColWidths();
     }
 
+
     // Guard: if DOM already parsed when script loads (e.g. loaded via CDN after DOMContentLoaded
     // has already fired), run immediately. Otherwise wait for the event.
     if (document.readyState === 'loading') {
@@ -7102,6 +7480,7 @@
       _onReady();
     }
 
+
     (() => {
       const ENTRY = 'Khmer Vocabulary v' + APP_VERSION,
         KEY = 'Ion-o-koji Watermark';
@@ -7109,5 +7488,6 @@
       logs.push(ENTRY);
       localStorage.setItem(KEY, logs.map(item => `- ${item}`).join('\n'));
     })();
+
 
   
