@@ -1,4 +1,3 @@
-
     (function() {
       var _app = document.getElementById('app');
       if (_app) _app.innerHTML = `
@@ -6631,7 +6630,7 @@
         sk: 'muy tt'
       },
       {
-        en: 'Elder Eav',
+        en: 'Elder Eav (Want to be gangster)',
         sk: 'steav'
       },
       {
