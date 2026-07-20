@@ -1,4 +1,3 @@
-
     (function() {
       var _app = document.getElementById('app');
       if (_app) _app.innerHTML = `
@@ -1050,7 +1049,7 @@
     // Change ONLY this one constant to bump the app version everywhere:
     // the Settings page, the exported JSON backup, the stat sent to the
     // Google Sheet, the "app updated" notification, and the footer watermark.
-    var APP_VERSION = '8.7.1';
+    var APP_VERSION = '8.7.2';
     var LAST_SEEN_VERSION_KEY = 'kv_last_seen_version';
     var CHANGELOG_URL = 'https://docs.google.com/document/d/1ynpcFYYxTFDjj9exho4jvJZeWI55VQJDmJutVzQgH30/edit?usp=drivesdk';
 
