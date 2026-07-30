@@ -1,4 +1,3 @@
-
     (function() {
       var _app = document.getElementById('app');
       if (_app) _app.innerHTML = `
@@ -2867,7 +2866,7 @@
       var div = document.createElement('div');
       div.className = 'toast achv-toast';
       div.style.cursor = 'pointer';
-      div.innerHTML = '<span class="achv-toast-icon">ℹ️</span><span><strong>App updated!</strong> Now on v' + esc(newV) + '<br><span style="font-size:.65rem;opacity:.75;text-decoration:underline">Click to see the change log</span></span>';
+      div.innerHTML = '<span class="achv-toast-icon">ℹ️</span><span><strong>App updated!</strong> Now on ' + esc(newV) + '<br><span style="font-size:.65rem;opacity:.75;text-decoration:underline">Click to see the change log</span></span>';
       div.onclick = function() {
         window.open(CHANGELOG_URL, '_blank');
         checkAndUnlock('curious');
