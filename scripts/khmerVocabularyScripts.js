@@ -1019,7 +1019,7 @@
       COMPETITIVE_KEY = 'kv_competitive_won';
 
 
-    var APP_VERSION = 'v8.7.3';
+    var APP_VERSION = '8.7.3';
     var LAST_SEEN_VERSION_KEY = 'kv_last_seen_version';
     var CHANGELOG_URL = 'https://docs.google.com/document/d/1ynpcFYYxTFDjj9exho4jvJZeWI55VQJDmJutVzQgH30/edit?usp=drivesdk';
 
