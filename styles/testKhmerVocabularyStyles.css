@@ -105,7 +105,7 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      font-size: .68rem;
+      font-size: .76rem;
       color: var(--dim);
       background: var(--surf2);
       border: 1px solid var(--bdr);
@@ -113,8 +113,8 @@
       padding: 3px 8px;
       white-space: nowrap;
       flex: 0 0 auto;
-      width: 96px;
-      min-width: 96px;
+      width: 88px;
+      min-width: 88px;
       transition: border-color .3s;
       cursor: pointer;
       touch-action: manipulation;
@@ -4961,3 +4961,21 @@
     .add-send-top:disabled { opacity: .5; cursor: default }
     .add-send-top:active { transform: scale(.96) }
     .study-grid .study-dir-btn { font-size: .7rem; padding: 0 4px; text-overflow: clip }
+
+/* 9.0.9: stable controls and obvious scroll areas, using existing theme tokens. */
+#sc-date { width: 96px; }
+#sc-conf { width: 112px; }
+.status-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.status-head h3 { margin-bottom: 0; }
+.status-head #sync-btn { border: 1px solid var(--bdr); background: var(--surf2); color: var(--text); padding: 7px 12px; border-radius: 6px; }
+#imp-prog-ovl .macts > button { flex: 1; min-width: 0; }
+#imp-prog-cards { max-height: 55vh; overflow-y: auto; }
+.status-complete { color: var(--ok); display: flex; justify-content: space-between; gap: 8px; }
+.study-grid #study-filter.study-multi-sel.sg-cats { overflow-y: scroll; scrollbar-width: auto; scrollbar-color: var(--acc3) var(--surf2); scrollbar-gutter: stable; }
+#study-filter::-webkit-scrollbar { width: 9px; display: block; }
+#study-filter::-webkit-scrollbar-thumb { background: var(--acc3); border-radius: 4px; }
+#study-filter::-webkit-scrollbar-track { background: var(--surf2); }
+.ref-kh-example { font-family: var(--kh-font); margin-left: 6px; color: var(--dim); }
+.hm-cell[role="button"] { cursor: pointer; }
+.hm-cell[role="button"]:focus-visible { outline: 2px solid var(--acc3); }
+.rep-card-weekly { max-height: 350px; overflow-y: auto; }
