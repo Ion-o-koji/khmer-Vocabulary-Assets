@@ -16,7 +16,6 @@
       <span class="dot" id="dot"></span>
       <span class="spill-txt" id="stxt">Loading…</span>
     </div>
-    <button class="ibtn" id="sync-btn" onclick="doSyncClick()" title="Sync now"><span class="rib">↻</span></button>
     <button class="ibtn" onclick="openCfg()" title="Settings">⚙️</button>
   </header>
 
@@ -172,6 +171,7 @@
             <label class="fc-set-row" for="opt-match5"><span class="fc-set-txt"><span class="fc-set-name">Match 5</span><span class="fc-set-sub">Review weak words in 5-card batches</span></span><span class="tog"><input type="checkbox" id="opt-match5" onchange="saveSettings()"><span class="tog-sl"></span></span></label>
             <label class="fc-set-row" for="opt-favboost"><span class="fc-set-txt"><span class="fc-set-name">⭐ Favourite boost</span><span class="fc-set-sub">Favourited words show up more often</span></span><span class="tog"><input type="checkbox" id="opt-favboost" onchange="saveSettings();initStudy()"><span class="tog-sl"></span></span></label>
             <label class="fc-set-row" for="opt-swipe"><span class="fc-set-txt"><span class="fc-set-name">Swipe cards</span><span class="fc-set-sub">Swipe right = Know, left = Don’t know (works before or after flipping)</span></span><span class="tog"><input type="checkbox" id="opt-swipe" onchange="saveSettings();applyStudyPrefs()"><span class="tog-sl"></span></span></label>
+            <label class="fc-set-row" for="opt-reverse-swipe"><span class="fc-set-txt"><span class="fc-set-name">Reverse swipe direction</span><span class="fc-set-sub">Left = Know, right = Don’t know</span></span><span class="tog"><input type="checkbox" id="opt-reverse-swipe" onchange="saveSettings();applyStudyPrefs()"><span class="tog-sl"></span></span></label>
           </div>
           <div class="fc-set-group"><div class="fc-set-gtitle">Audio / Timing</div>
             <label class="fc-set-row" for="opt-autospeak"><span class="fc-set-txt"><span class="fc-set-name">Speak on flip</span><span class="fc-set-sub">Play the Khmer audio when a card is flipped</span></span><span class="tog"><input type="checkbox" id="opt-autospeak" checked onchange="saveSettings()"><span class="tog-sl"></span></span></label>
@@ -614,12 +614,12 @@
 
   <div class="movl" id="imp-prog-ovl" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="mcard" style="max-width:360px">
-      <h3 id="imp-prog-title">⏳ Progress</h3>
+      <div class="status-head"><h3 id="imp-prog-title">⏳ Progress</h3><button class="btn-g" id="sync-btn" onclick="doSyncClick();renderProgressModal()">↻ Sync</button></div>
       <!-- 9.0.8: one card per running task (import / delete / save / categories / edits), rendered by renderProgressModal() -->
       <div id="imp-prog-cards"></div>
       <div class="imp-eta" id="imp-eta" style="display:none"></div>
       <div class="macts" style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
-        <button class="btn-danger" id="imp-cancel-btn" onclick="cancelPendingUpload()" style="font-size:.78rem;padding:6px 12px">⏹ Cancel Upload</button>
+        <button class="btn-danger" id="imp-cancel-btn" onclick="cancelPendingUpload()" style="font-size:.78rem;padding:6px 12px">⏹ Cancel</button>
         <button class="btn-g" onclick="el('imp-prog-ovl').classList.remove('open')">Close</button>
       </div>
     </div>
@@ -962,7 +962,7 @@
             <div class="cr-title">Khmer Vocabulary</div>
             <div class="cr-sub">Personal or Social learning tool</div>
           </div>
-          <span style="font-size:.72rem;color:var(--dim)" id="cfg-version-label">v9.0.8</span>
+          <span style="font-size:.72rem;color:var(--dim)" id="cfg-version-label">v9.0.9</span>
         </div>
         <div class="cfg-row">
           <div class="cfg-row-left">
@@ -1232,7 +1232,7 @@
     var _myRowsSnapshot = null;
 
 
-    var APP_VERSION = '9.0.8';
+    var APP_VERSION = '9.0.9';
     var LAST_SEEN_VERSION_KEY = 'kv_last_seen_version';
     var CHANGELOG_URL = 'https://docs.google.com/document/d/1ynpcFYYxTFDjj9exho4jvJZeWI55VQJDmJutVzQgH30/edit?usp=drivesdk';
 
@@ -1337,7 +1337,7 @@
     // which matches by stable ID and deletes bottom-up.
     var DEL_QUEUE_KEY = 'kv_pending_deletes';
     var _delQueue = safeJsonParse(ls(DEL_QUEUE_KEY), []);
-    var _delRunning = false, _delBatchTimer = null, DEL_BATCH = 25;
+    var _delRunning = false, _delBatchTimer = null, DEL_BATCH = 25, _deleteInFlight = [], _catInFlight = [];
 
     function _saveDelQueue() { lsSet(DEL_QUEUE_KEY, JSON.stringify(_delQueue)); }
 
@@ -1374,10 +1374,11 @@
     function _backoffMs(retries) { return Math.min(60000, 2000 * Math.pow(2, Math.min(retries, 5))); }
 
     function runDeleteQueue() {
-      if (_delRunning) return;
+      if (_delRunning || _editQueueRunning || _catRunning) { if (!_delRunning) setTimeout(runDeleteQueue, 150); return; }
       if (!_delQueue.length || !SCRIPT_URL) {
         if (deleteState.active && !_delQueue.length) {
           deleteState.active = false;
+          _statusRefresh();
           _setDeleteTriggersDisabled(false);
           if (!mutationsInFlight()) setStatus('ok', allRows.length + ' words');
           if (deleteState.done) toast('✓ ' + deleteState.done + ' entr' + (deleteState.done === 1 ? 'y' : 'ies') + ' deleted from sheet', 'ok');
@@ -1389,6 +1390,7 @@
       var tab = _delQueue[0].tab;
       var batch = _delQueue.filter(function(q) { return q.tab === tab; }).slice(0, DEL_BATCH);
       var ids = batch.map(function(q) { return q.id; });
+      _deleteInFlight = ids.slice();
       postToSheet({ action: 'deleteWords', user: tab, tab: tab, ids: JSON.stringify(ids) }).then(function(j) {
         if (j && j.success) return true;
         if (j && /Unknown action/.test(j.error || '')) {
@@ -1413,6 +1415,7 @@
           _delQueue = _delQueue.filter(function(q) { return !(q.tab === tab && sent[q.id]); });
           _saveDelQueue();
           deleteState.done += ids.length;
+          _rememberEta('del', deleteState.done);
           updateDeleteProgress();
           setTimeout(runDeleteQueue, 150);
         } else {
@@ -1426,6 +1429,19 @@
 
     // ── ETA helpers for the yellow status bar / progress overlay ──
     var _etaStarts = {};
+    var _etaHistory = safeJsonParse(ls('kv_eta_history'), {});
+    var _progressFinished = {}, _progressSeen = {}, _addInFlight = [];
+    pendingQueue.forEach(function(q, i) { if (!q.reqId) q.reqId = 'recovered_' + Date.now() + '_' + i; });
+    savePendingQueue();
+    function _rememberEta(key, done) {
+      var st = _etaStarts[key];
+      if (!st || done <= (st.learned || 0)) return;
+      var ms = (Date.now() - st.t) / done;
+      if (ms > 0) { _etaHistory[key] = Math.max(50, Math.min(60000, (_etaHistory[key] || ms) * .65 + ms * .35)); lsSet('kv_eta_history', JSON.stringify(_etaHistory)); }
+      st.learned = done;
+    }
+    function _taskMs(key) { return _etaHistory[key] || ({ del: 200, cat: 350, save: 1200, edit: 1500, imp: 300, sync: 2500 }[key]) || 1500; }
+    function _statusRefresh() { renderProgressModal(); if (_activeProgressTasks().length) setStatus(_syncInFlight ? 'spin-dot' : 'imp', _syncInFlight ? 'Syncing…' : 'Queued'); else if (MAIN_USER && !S.offlineMode && navigator.onLine) setStatus('ok', allRows.length + ' words'); else setStatus('off', MAIN_USER ? 'Offline' : 'Not signed in'); }
     // 9.0.7: the estimate is based on the *observed* sending rate. We keep (time, done) samples and
     // measure throughput over the most recent ~30s window (falls back to the whole run), so the estimate
     // follows the real per-word speed of the sheet instead of a fixed guess. Always labelled as an estimate.
@@ -1433,6 +1449,7 @@
     function _etaText(key, done, total) {
       var st = _etaStarts[key];
       if (!st) { _etaReset(key); st = _etaStarts[key]; }
+      _rememberEta(key, done);
       var now = Date.now(), smp = st.samples;
       if (!smp.length || smp[smp.length - 1].d !== done) smp.push({ t: now, d: done });
       while (smp.length > 2 && now - smp[0].t > 30000) smp.shift();
@@ -1440,7 +1457,7 @@
       var remaining = Math.max(0, total - done);
       if (total <= 0) return 'Estimating time remaining…';
       if (!remaining) return 'Finishing up…';
-      if (done <= 0) return 'Estimating time remaining… (' + remaining + ' left)';
+      if (done <= 0) return '⏱ est. ~' + _etaFmtSecs(remaining * _taskMs(key) / 1000) + ' left (' + remaining + ' to go)';
       var a = smp[0], b = smp[smp.length - 1], rate = 0;
       if (b.d - a.d >= 2 && b.t > a.t) rate = (b.d - a.d) / (b.t - a.t); // items per ms, recent window
       if (!rate) rate = done / Math.max(1, now - st.t);                    // whole-run average
@@ -1469,7 +1486,7 @@
       var tasks = [];
       if (importState.active) tasks.push({ icon: '📥', name: 'Importing', etaKey: 'imp',
         done: importState.sent + (importState.failed || 0), total: importState.total,
-        retrying: false, detail: (importState.label ? importState.label + ' · ' : '') + importState.sent + '/' + importState.total + ' words' + (importState.failed ? ' (' + importState.failed + ' failed)' : '') });
+        retrying: false, failed: importState.failed > 0, cancelled: !!importState.cancelRequested, detail: (importState.label ? importState.label + ' · ' : '') + importState.sent + '/' + importState.total + ' words' + (importState.failed ? ' (' + importState.failed + ' failed)' : '') });
       if (deleteState.active || _delQueue.length) tasks.push({ icon: '🗑️', name: 'Deleting', etaKey: 'del',
         done: deleteState.done, total: Math.max(deleteState.total, deleteState.done + _delQueue.length),
         retrying: _delRetries > 0, detail: deleteState.done + '/' + Math.max(deleteState.total, deleteState.done + _delQueue.length) + ' deleted' });
@@ -1479,16 +1496,20 @@
       if (catState.active || _catQueue.length) tasks.push({ icon: '📂', name: 'Category update', etaKey: 'cat',
         done: catState.done, total: Math.max(catState.total, catState.done + _catQueue.length),
         retrying: _catRetries > 0, detail: catState.done + '/' + Math.max(catState.total, catState.done + _catQueue.length) + ' updated' });
-      if (typeof _editQueue !== 'undefined' && _editQueue.length) tasks.push({ icon: '✏️', name: 'Saving edits', etaKey: null,
+      if (typeof _editQueue !== 'undefined' && _editQueue.length) tasks.push({ icon: '✏️', name: 'Saving edits', etaKey: 'edit',
         done: Math.max(0, _editBatchTotal - _editQueue.length), total: Math.max(_editBatchTotal, _editQueue.length),
         retrying: false, detail: Math.max(0, _editBatchTotal - _editQueue.length) + '/' + Math.max(_editBatchTotal, _editQueue.length) + ' edits saved' });
+      if (_syncInFlight || _syncDeferred) tasks.push({ icon: '↻', name: _syncDeferred ? 'Sync queued' : 'Syncing', etaKey: 'sync', done: 0, total: 1, detail: _syncDeferred ? 'Waiting for changes to finish' : 'Reading your sheet' });
       return tasks;
     }
     function renderProgressModal() {
       var box = el('imp-prog-cards');
       if (!box) return;
       var tasks = _activeProgressTasks();
-      var html = '', totDone = 0, totTotal = 0, rateSum = 0;
+      var html = '', totDone = 0, totTotal = 0, estimateMs = 0;
+      var live = {};
+      tasks.forEach(function(t) { live[t.name] = true; if (_progressSeen[t.name] && _progressSeen[t.name].cancelled) t.cancelled = true; _progressSeen[t.name] = t; delete _progressFinished[t.name]; });
+      Object.keys(_progressSeen).forEach(function(k) { if (!live[k]) { var t = _progressSeen[k]; _progressFinished[k] = { name: k, total: t.total, cancelled: !!t.cancelled, failed: !!t.failed }; delete _progressSeen[k]; } });
       tasks.forEach(function(t) {
         var pct = t.total ? Math.min(100, Math.round(t.done / t.total * 100)) : 0;
         html += '<div class="imp-prog-card" style="margin-top:8px">' +
@@ -1498,16 +1519,15 @@
           '<div class="imp-prog-bar-bg"><div class="imp-prog-bar-fill" style="width:' + pct + '%"></div></div>' +
           '<div style="font-size:.72rem;color:var(--dim);margin-top:4px">' + esc(t.detail) + '</div></div>';
         totDone += t.done; totTotal += t.total;
-        if (t.etaKey) { _etaText(t.etaKey, t.done, t.total); rateSum += _etaRate(t.etaKey); } // _etaText records the throughput sample
+        if (t.etaKey) { _etaText(t.etaKey, t.done, t.total); estimateMs += Math.max(0, t.total - t.done) * (_etaRate(t.etaKey) ? 1 / _etaRate(t.etaKey) : _taskMs(t.etaKey)); } // _etaText records the throughput sample
       });
+      Object.keys(_progressFinished).forEach(function(k) { html += '<div class="imp-prog-card status-complete">✓ ' + esc(k) + (_progressFinished[k].cancelled ? ' · Cancelled' : _progressFinished[k].failed ? ' · Finished with errors' : ' · Complete <strong>100%</strong>') + '</div>'; });
       box.innerHTML = html || '<div style="font-size:.8rem;color:var(--dim)">Nothing in progress right now.</div>';
       var e2 = el('imp-eta');
       if (e2) {
         var remaining = Math.max(0, totTotal - totDone);
         if (tasks.length && remaining > 0) {
-          e2.textContent = rateSum > 0
-            ? '⏱ est. ~' + _etaFmtSecs(remaining / rateSum / 1000) + ' left for everything (' + remaining + ' to go)'
-            : '⏱ Estimating time remaining… (' + remaining + ' to go)';
+          e2.textContent = '⏱ est. ~' + _etaFmtSecs(estimateMs / 1000) + ' left for everything (' + remaining + ' to go)';
           e2.style.display = '';
         } else {
           e2.textContent = '';
@@ -1515,7 +1535,7 @@
         }
       }
       var cancelBtn = el('imp-cancel-btn');
-      if (cancelBtn) cancelBtn.style.display = (saveState.active || pendingQueue.length) ? '' : 'none';
+      if (cancelBtn) { cancelBtn.style.display = ''; cancelBtn.disabled = !tasks.some(function(t) { return t.etaKey !== 'sync'; }); }
     }
 
     // ── 9.0.7: Persisted bulk-category queue ──
@@ -1602,6 +1622,7 @@
       if (!_catQueue.length || !SCRIPT_URL) {
         if (catState.active && !_catQueue.length) {
           catState.active = false;
+          _statusRefresh();
           if (!mutationsInFlight()) setStatus('ok', allRows.length + ' words');
           if (catState.done) toast('✓ Category updated for ' + catState.done + ' entr' + (catState.done === 1 ? 'y' : 'ies') + ' on the sheet', 'ok');
         }
@@ -1619,6 +1640,7 @@
       }
       // 9.0.8: everything currently queued for the SAME category goes out in one request
       var batch = _catQueue.filter(function(q) { return q.tab === item.tab && q.category === item.category; }).slice(0, 25);
+      _catInFlight = batch.map(function(q) { return _catItemKey(q) + '|' + q.category; });
       var finish = function() {
         _catRunning = false;
         _catRetries = 0;
@@ -1700,7 +1722,7 @@
     // ── Sync gate: block sync while mutating requests are in flight ──
     var _syncDeferred = false;
     function mutationsInFlight() {
-      return !!(deleteState.active || _delQueue.length || _catQueue.length || catState.active || importState.active || (saveState.active && queueRunning) ||
+      return !!(pendingQueue.length || queueRunning || deleteState.active || _delQueue.length || _catQueue.length || catState.active || importState.active || (saveState.active && queueRunning) ||
         activeTasks > 0 || (typeof _editQueue !== 'undefined' && _editQueue.length) || _importSubmitting);
     }
     setInterval(function() {
@@ -1744,6 +1766,7 @@
       tts: true,
       dailyWords: true,
       swipeStudy: true,
+      reverseSwipe: false,
       notesBeforeFlip: false,
       transProgressive: true,
       hideDueTodayBanner: false,
@@ -2860,25 +2883,20 @@
         dot = el('dot'),
         stxt = el('stxt');
       if (!sp) return;
+      var tasks = _activeProgressTasks().filter(function(t) { return t.etaKey !== 'sync'; });
+      if (tasks.length) { var done = 0, total = 0; tasks.forEach(function(t) { done += t.done; total += t.total; }); state = 'imp'; msg = (tasks.length > 1 ? 'Tasks ' : tasks[0].etaKey === 'del' ? 'Delete ' : tasks[0].etaKey === 'edit' ? 'Edit ' : tasks[0].etaKey === 'cat' ? 'Cats ' : 'Save ') + Math.round(total ? done / total * 100 : 0) + '%'; }
       dot.className = 'dot' + (state ? ' ' + state : '');
       stxt.textContent = msg || '';
       sp.className = 'spill' + (state === 'spin-dot' ? ' syncing' : state === 'ok' ? ' s-ok' : state === 'err' ? ' s-err' : state === 'off' ? ' s-off' : state === 'imp' ? ' s-imp' : '');
     }
 
     function onSpillClick() {
-      // 9.0.8: tapping the pill during ANY background task (saving, deleting, category
-      // updates, edits, imports) opens the unified progress modal.
-      if (importState.active || deleteState.active || saveState.active || catState.active ||
-          _catQueue.length || _delQueue.length || pendingQueue.length ||
-          (typeof _editQueue !== 'undefined' && _editQueue.length)) {
-        renderProgressModal();
-        el('imp-prog-ovl').classList.add('open');
-      } else if (_syncInFlight) {
-        toast('Syncing with your sheet — usually a few seconds.', 'inf');
-      } else if (_syncDeferred) {
-        toast('Sync will run as soon as the current changes finish saving.', 'inf');
-      }
+      renderProgressModal();
+      el('imp-prog-ovl').classList.add('open');
     }
+
+    setInterval(function() { if (mutationsInFlight() || el('imp-prog-ovl').classList.contains('open')) _statusRefresh(); }, 1000);
+    window.addEventListener('online', function() { _statusRefresh(); processPendingQueue(); runDeleteQueue(); runCatQueue(); processEditQueue(); });
 
     function updateImportProgress() {
       renderProgressModal();
@@ -2905,15 +2923,23 @@
     }
 
     function cancelPendingUpload() {
-      if (!confirm('Cancel remaining word uploads to the sheet? The remaining queued words will be removed.')) return;
-      var count = pendingQueue.length;
-      queueRunning = false;
-      saveState.active = false;
-      pendingQueue = [];
-      savePendingQueue();
-      el('imp-prog-ovl').classList.remove('open');
-      if (!mutationsInFlight()) setStatus('ok', allRows.length + ' words');
-      toast('Upload cancelled (' + count + ' word' + (count !== 1 ? 's' : '') + ' removed from queue).', 'inf');
+      if (!confirm('Cancel changes that have not been sent yet? Requests already sending will finish. Sync afterward to restore any cancelled edits or deletions.')) return;
+      var cancelledAdds = pendingQueue.filter(function(q) { return _addInFlight.indexOf(q.reqId) === -1; }).map(function(q) { return q.reqId; });
+      allRows = allRows.filter(function(r) { return cancelledAdds.indexOf(r.reqId) === -1; });
+      pendingQueue = pendingQueue.filter(function(q) { return _addInFlight.indexOf(q.reqId) !== -1; });
+      _delQueue = _delRunning ? _delQueue.filter(function(q) { return _deleteInFlight.indexOf(q.id) !== -1; }) : [];
+      _catQueue = _catRunning ? _catQueue.filter(function(q) { return _catInFlight.indexOf(_catItemKey(q) + '|' + q.category) !== -1; }) : [];
+      _editQueue = _editQueueRunning ? _editQueue.slice(0, 1) : [];
+      Object.keys(_progressSeen).forEach(function(k) { _progressSeen[k].cancelled = true; });
+      importState.cancelRequested = true;
+      saveState.total = saveState.done + pendingQueue.length;
+      deleteState.total = deleteState.done + _delQueue.length;
+      catState.total = catState.done + _catQueue.length;
+      saveState.active = !!pendingQueue.length; deleteState.active = !!_delQueue.length; catState.active = !!_catQueue.length;
+      savePendingQueue(); _saveDelQueue(); _saveCatQueue(); _saveEditQueue();
+      saveCache(allRows); render(); renderFav();
+      _statusRefresh();
+      toast('Unsent changes cancelled. Requests already sending will finish.', 'inf');
     }
 
     function updateSaveProgress() {
@@ -3062,7 +3088,7 @@
 
     // ── 9.0.7: flashcard settings presets (user-named, stored on this device) ──
     var FC_PRESETS_KEY = 'kv_fc_presets';
-    var FC_PRESET_FIELDS = ['studyRo', 'notesBeforeFlip', 'hideDueTodayBanner', 'srs', 'mc', 'match5', 'favBoost', 'swipeStudy', 'autoSpeakFlip'];
+    var FC_PRESET_FIELDS = ['studyRo', 'notesBeforeFlip', 'hideDueTodayBanner', 'srs', 'mc', 'match5', 'favBoost', 'swipeStudy', 'reverseSwipe', 'autoSpeakFlip'];
     function _fcPresets() { return safeJsonParse(ls(FC_PRESETS_KEY), []); }
     function populateFcPresets(selName) {
       var sel = el('fc-preset-sel');
@@ -3547,6 +3573,7 @@
       if (g('opt-auto-fullscreen')) g('opt-auto-fullscreen').checked = !!S.autoFullscreen;
       if (g('opt-tts')) g('opt-tts').checked = S.tts !== false;
       if (g('opt-swipe')) g('opt-swipe').checked = S.swipeStudy !== false;
+      if (g('opt-reverse-swipe')) g('opt-reverse-swipe').checked = !!S.reverseSwipe;
       if (g('opt-notesfront')) g('opt-notesfront').checked = !!S.notesBeforeFlip;
       if (g('opt-transprog')) g('opt-transprog').checked = !!S.transProgressive;
       // Daily-words toggle was replaced by "Hide Due Today Words"; tracking stays on.
@@ -3602,6 +3629,7 @@
         if (!S.tts) stopAllAudio();
       }
       if (g('opt-swipe')) S.swipeStudy = g('opt-swipe').checked;
+      if (g('opt-reverse-swipe')) S.reverseSwipe = g('opt-reverse-swipe').checked;
       if (g('opt-notesfront')) S.notesBeforeFlip = g('opt-notesfront').checked;
       if (g('opt-transprog')) S.transProgressive = g('opt-transprog').checked;
       if (g('opt-hideduetoday')) S.hideDueTodayBanner = g('opt-hideduetoday').checked;
@@ -4364,6 +4392,7 @@
       }
       if (_syncInFlight) return;
       _syncInFlight = true;
+      renderProgressModal();
       if (!allRows.length) showIndexSkeleton();
       setBusy(1);
       setStatus('spin-dot', 'Syncing…');
@@ -4372,6 +4401,7 @@
           return r.json();
         }).then(function(json) {
           _syncInFlight = false;
+          renderProgressModal();
           setBusy(-1);
           if (sb) {
             sb.classList.remove('spin-icon');
@@ -4394,7 +4424,7 @@
             _mergedKeys[(r.khmer || '').trim() + '|' + (r.english || '').trim().toLowerCase()] = 1;
           });
           var _stillPending = pendingQueue.filter(function(item) {
-            return !readOnlyMode && !_mergedKeys[(item.khmer || '').trim() + '|' + (item.english || '').trim().toLowerCase()];
+            return !readOnlyMode && !item.deleteAfterSave && !_mergedKeys[(item.khmer || '').trim() + '|' + (item.english || '').trim().toLowerCase()];
           });
           allRows = overlayPendingCats(freshRows).concat(_stillPending);
           saveCache(allRows);
@@ -4415,6 +4445,7 @@
           renderProgress();
         }).catch(function(err) {
           _syncInFlight = false;
+          renderProgressModal();
           setBusy(-1);
           if (sb) {
             sb.classList.remove('spin-icon');
@@ -4498,10 +4529,11 @@
         return;
       }
       var item = pendingQueue[0];
+      _addInFlight = [item.reqId];
       var _dupKey = (item.khmer || '').trim() + '|' + (item.english || '').trim().toLowerCase();
 
       var _alreadyOnSheet = !readOnlyMode && allRows.some(function(r) {
-        return r.id &&
+        return !item.deleteAfterSave && r.id &&
           ((r.khmer || '').trim() + '|' + (r.english || '').trim().toLowerCase()) === _dupKey;
       });
       if (_alreadyOnSheet) {
@@ -4525,15 +4557,15 @@
       var url = buildAddUrl(item);
       fetch(url).then(function(r) {
         return r.json();
-      }).then(function(j) {
+      }).then(async function(j) {
         setBusy(-1);
         if (j.success) {
           _queueRetries = 0;
           lastWriteTime = Date.now();
-          pendingQueue.shift();
-          savePendingQueue();
+          await _ackAdded([item], j.data);
           _queueBatchSaved++;
           saveState.done++;
+          _rememberEta('save', saveState.done);
           queueRunning = false;
           if (pendingQueue.length > 0) {
             updateSaveProgress();
@@ -4550,6 +4582,7 @@
       }).catch(function() {
         setBusy(-1);
         queueRunning = false;
+        if (!pendingQueue.length) return _finishAddQueue();
         setStatus('err', 'Offline — ' + pendingQueue.length + ' word' + (pendingQueue.length === 1 ? '' : 's') + ' waiting to save');
         _queueRetries++;
         setTimeout(processPendingQueue, _backoffMs(_queueRetries));
@@ -4563,6 +4596,7 @@
       saveState.active = false;
       queueRunning = false;
       _queueWasEmpty = true;
+      _statusRefresh();
       if (!mutationsInFlight()) setStatus('ok', allRows.length + ' words');
       toast('✓ ' + _queueBatchSaved + ' word' + (_queueBatchSaved !== 1 ? 's' : '') + ' saved!', 'ok');
     }
@@ -4572,25 +4606,53 @@
       queueRunning = true;
       setBusy(1);
       var batch = pendingQueue.slice(0, 10);
-      postToSheet({ action: 'addWords', user: MAIN_USER, tab: MAIN_USER, words: JSON.stringify(batch) }).then(function(j) {
+      _addInFlight = batch.map(function(q) { return q.reqId; });
+      postToSheet({ action: 'addWords', user: MAIN_USER, tab: MAIN_USER, words: JSON.stringify(batch) }).then(async function(j) {
         setBusy(-1);
-        queueRunning = false;
         if (j && j.success) {
           _queueRetries = 0;
           lastWriteTime = Date.now();
-          pendingQueue.splice(0, batch.length);
-          savePendingQueue();
+          await _ackAdded(batch, j.data);
+          queueRunning = false;
           _queueBatchSaved += batch.length;
           saveState.done += batch.length;
+          _rememberEta('save', saveState.done);
           if (pendingQueue.length) { updateSaveProgress(); setTimeout(_drainAddBatch, 50); }
           else _finishAddQueue();
           return;
         }
+        queueRunning = false;
         if (j && /Unknown action/.test(j.error || '')) { processPendingQueue(); return; } // older backend
         _queueRetries++;
         setStatus('err', 'Save failed — retrying (' + pendingQueue.length + ' waiting)');
         setTimeout(processPendingQueue, _backoffMs(_queueRetries));
-      });
+      }).catch(function() { queueRunning = false; _queueRetries++; _statusRefresh(); setTimeout(processPendingQueue, _backoffMs(_queueRetries)); });
+    }
+
+    function _deleteLocalPending(row) {
+      var matches = function(q) { return row.reqId ? q.reqId === row.reqId : (q.khmer || '').trim() === (row.khmer || '').trim() && (q.english || '').trim().toLowerCase() === (row.english || '').trim().toLowerCase(); };
+      pendingQueue = pendingQueue.filter(function(q) { if (!matches(q)) return true; if (_addInFlight.indexOf(q.reqId) !== -1 || q.deleteAfterSave) { q.deleteAfterSave = true; return true; } return false; });
+      saveState.total = saveState.done + pendingQueue.length;
+      saveState.active = !!pendingQueue.length;
+      _editQueue = _editQueue.filter(function(q, i) { return (_editQueueRunning && i === 0) || !(row.id && q.id === row.id); });
+      _catQueue = _catQueue.filter(function(q) { return !(row.id && q.id === row.id); });
+      savePendingQueue(); _saveEditQueue(); _saveCatQueue(); _statusRefresh();
+    }
+    async function _ackAdded(batch, data) {
+      data = data || {};
+      var rows = null;
+      for (var i = 0; i < batch.length; i++) {
+        var q = batch[i], id = data.ids ? data.ids[i] : data.id;
+        if (!id) {
+          if (!rows) { var response = await fetch(SCRIPT_URL + '?action=getData&user=' + encodeURIComponent(q.tab || MAIN_USER)); var j = await response.json(); if (!j.success) throw new Error('Unable to confirm saved word'); rows = (j.data || {})[q.tab || MAIN_USER] || mergeAll(j.data || {}); }
+          var found = rows.find(function(r) { return (r.khmer || '').trim() === (q.khmer || '').trim() && (r.english || '').trim().toLowerCase() === (q.english || '').trim().toLowerCase(); });
+          id = found && found.id;
+        }
+        if (q.deleteAfterSave) { if (!id) throw new Error('Waiting for saved word identifier'); enqueueDeletes([id], q.tab || MAIN_USER); }
+        else allRows.forEach(function(r) { if (r.reqId === q.reqId) { r.id = id || r.id; r.rowIndex = data.rowIndex > 0 ? data.rowIndex : r.rowIndex; } });
+        pendingQueue = pendingQueue.filter(function(x) { return x.reqId !== q.reqId; });
+      }
+      _addInFlight = []; saveCache(allRows); savePendingQueue();
     }
 
     function buildAddUrl(data) {
@@ -4919,10 +4981,6 @@
     }
 
     function bulkDelete() {
-      if (_delRunning) {
-        toast('Still deleting — please wait a moment.', 'inf');
-        return;
-      }
       if (!selectedKeys.size) {
         toast('Select some entries first.', 'err');
         return;
@@ -4935,6 +4993,7 @@
         return !selectedKeys.has(wordKey(r));
       });
       toDelete.forEach(function(r) {
+        _deleteLocalPending(r);
         favorites.delete(wordKey(r));
       });
       saveCache(allRows);
@@ -5442,7 +5501,7 @@
       if (_editsPendingAtLaunch && _editQueue.length && !_editQueueRunning) { _editBatchTotal = _editQueue.length; toast('Resuming ' + _editQueue.length + ' unsaved edit' + (_editQueue.length === 1 ? '' : 's') + '…', 'inf'); processEditQueue(); }
     }, 4400);
     var _editQueueRunning = false;
-    var _editBatchTotal = 0;
+    var _editBatchTotal = _editQueue.length;
 
     var _editRejects = {}; // per-item server rejections; a refused edit is dropped after 3 tries
     function processEditQueue() {
@@ -5463,6 +5522,8 @@
           return;
         }
       }
+      if (_editBatchTotal < _editQueue.length) _editBatchTotal = _editQueue.length;
+      if (!_etaStarts.edit || _editBatchTotal === _editQueue.length) _etaReset('edit');
       _editQueueRunning = true;
       setBusy(1);
       var rem = _editQueue.length;
@@ -5488,6 +5549,7 @@
           delete _editRejects[rk];
           _editQueue.shift();
           _saveEditQueue();
+          _rememberEta('edit', _editBatchTotal - _editQueue.length);
           renderProgressModal();
           if (_editQueue.length > 0) {
             setTimeout(processEditQueue, 50);
@@ -5495,6 +5557,7 @@
             if (!mutationsInFlight()) setStatus('ok', allRows.length + ' words');
             toast('\u2713 ' + _editBatchTotal + ' edit' + (_editBatchTotal !== 1 ? 's' : '') + ' saved!', 'ok');
             _editBatchTotal = 0;
+            _statusRefresh();
           }
           return;
         }
@@ -5544,6 +5607,7 @@
       if (!editRow || readOnlyMode) return;
       if (!confirm('Delete this entry?')) return;
       var rowToDelete = editRow;
+      _deleteLocalPending(rowToDelete);
       var k = wordKey(rowToDelete);
       allRows = allRows.filter(function(r) {
         return wordKey(r) !== k;
@@ -6528,6 +6592,8 @@
       try { populateFcPresets((el('fc-preset-sel') || {}).value || ''); renderStudySetEditor(); } catch (e) {}
     }
 
+    function swipeRating(dir) { return (S.reverseSwipe ? dir < 0 : dir > 0) ? 2 : 0; }
+
     // Swipe gestures on the flashcard (toggle: Settings → Study → Flashcard Settings).
     (function() {
       var fc = el('flashcard');
@@ -6540,8 +6606,8 @@
       var THRESH = 60, il = el('fc-swipe-l'), ir = el('fc-swipe-r');
       // 9.0.7: the only swipe action is rating — right = Know, left = Don't know — flipped or not.
       function setInd() {
-        if (ir) ir.textContent = '✓ Know';
-        if (il) il.textContent = "✗ Don't Know";
+        if (ir) ir.textContent = S.reverseSwipe ? "✗ Don't Know" : '✓ Know';
+        if (il) il.textContent = S.reverseSwipe ? "✓ Know" : "✗ Don't Know";
         fc.classList.add('swipe-rate');
       }
       function clearSwipe(spring) {
@@ -6585,7 +6651,7 @@
           fc.classList.add('fc-noanim');
           fc.style.setProperty('--sw-p', 0);
           fc.style.transform = '';
-          rateCard(dir > 0 ? 2 : 0);
+          rateCard(swipeRating(dir));
           void fc.offsetWidth;
           fc.style.opacity = '';
           requestAnimationFrame(function() { fc.classList.remove('fc-noanim'); });
@@ -6778,12 +6844,19 @@
       r.days = r.days || {}; r.weeks = r.weeks || {};
       return r;
     }
+    function reportDayKeys(ms) {
+      var kh = new Date(ms + 7 * 3600000), end = Date.UTC(kh.getUTCFullYear(), kh.getUTCMonth(), kh.getUTCDate());
+      var previous = new Date(end); previous.setUTCMonth(previous.getUTCMonth() - 1);
+      if (previous.getUTCMonth() === kh.getUTCMonth()) previous.setUTCDate(0);
+      var out = []; for (var t = end; t > previous.getTime(); t -= 86400000) out.push(_khDateStr(t - 7 * 3600000));
+      return out;
+    }
+    function reportWeekKeys(ms) { var start = reportWeekStartMs(ms); return [0, 1, 2, 3].map(function(i) { return reportWeekKey(start - i * 7 * 86400000); }); }
     function _blankCounts() { var o = {}; REPORT_FIELDS.forEach(function(k) { o[k] = 0; }); return o; }
     // Roll completed weeks into summaries and prune anything older than the previous week.
     function rollupReports(r, now) {
       now = now || Date.now();
       var curWk = reportWeekKey(now);
-      var prevWk = reportWeekKey(reportWeekStartMs(now) - 1);
       var weeks = {};
       Object.keys(r.days).forEach(function(d) {
         var w = r.days[d].w || {};
@@ -6801,13 +6874,7 @@
         else if (prior.rolledAt) weeks[wk].rolledAt = prior.rolledAt;
         r.weeks[wk] = weeks[wk];
       });
-      // keep 2 weeks of daily data; keep 8 weekly summaries
-      Object.keys(r.days).forEach(function(d) {
-        var w = r.days[d].w || {};
-        var keep = Object.keys(w).some(function(wk) { return wk >= prevWk; });
-        if (!keep) delete r.days[d];
-      });
-      Object.keys(r.weeks).sort().slice(0, -8).forEach(function(wk) { delete r.weeks[wk]; });
+      // Historical days remain available for calendar inspection; the displayed window is one month.
       return r;
     }
     function recordReport(inc, ms) {
@@ -6828,7 +6895,7 @@
       return t;
     }
 
-    async function openDailyReportModal() {
+    async function openDailyReportModal(selectedDay) {
       var old = document.querySelector('.daily-report-modal');
       if (old) old.remove();
       var viewing = readOnlyMode ? (CURRENT_USER || '') : '';
@@ -6863,13 +6930,13 @@
         document.body.appendChild(modal);
         return;
       }
-      var today = todayKH();
+      var today = /^\d{4}-\d{2}-\d{2}$/.test(selectedDay || '') ? selectedDay : todayKH();
       var t = dayTotals(r.days[today]);
+      if (!r.days[today]) t.added = allRows.filter(function(row) { return String(row.dateAdded || '').slice(0, 10) === today; }).length;
       var curWk = reportWeekKey(Date.now());
-      var prevWk = reportWeekKey(reportWeekStartMs(Date.now()) - 1);
-      var cw = r.weeks[curWk] || _blankCounts(), pw = r.weeks[prevWk];
+      var cw = r.weeks[curWk] || _blankCounts();
       var tile = function(v, l, col) { return '<div class="daily-stat-tile"><div class="daily-stat-val"' + (col ? ' style="color:' + col + '"' : '') + '>' + v + '</div><div class="daily-stat-lbl">' + l + '</div></div>'; };
-      var days = Object.keys(r.days).sort().reverse();
+      var days = reportDayKeys(Date.now());
       var dayRows = days.map(function(d) {
         var x = dayTotals(r.days[d]);
         return '<tr><td>' + fmtRepDate(d) + '</td><td>' + x.reviewed + '</td><td>+' + (x.u2g + x.k2g) + '</td><td>' + x.added + '</td></tr>';
@@ -6878,12 +6945,12 @@
         '<div class="daily-report-head"><div class="daily-report-title">' + title + '</div>' + closeX + '</div>' +
         '<section class="rep-card rep-card-daily">' +
           '<div class="rep-card-title">📅 Daily report</div>' +
-          '<div class="rep-sec-title">Today · ' + fmtRepDate(today) + '</div>' +
+          '<div class="rep-sec-title">' + (selectedDay ? 'Date' : 'Today') + ' · ' + fmtRepDate(today) + '</div>' +
           '<div class="daily-report-grid">' +
             tile(t.reviewed, 'Cards Reviewed') + tile('+' + (t.k2g + t.u2g), 'Moved to "Got It"', 'var(--ok)') +
-            tile('+' + t.u2k, 'Promoted to "Kind Of"', 'var(--warn)') + tile(t.g2u, 'Reset to Unknown', 'var(--bad)') +
+            tile('+' + t.u2k, 'Promoted to "Kind Of"', 'var(--warn)') + tile(t.g2u, 'Reset to Unknown', 'var(--bad)') + tile(t.added, 'Words added') +
           '</div>' +
-          '<div class="rep-sec-title">Daily history (2 weeks)</div>' +
+          '<div class="rep-sec-title">Daily history (last month)</div>' +
           '<div class="rep-table-wrap"><table class="rep-table"><thead><tr><th>Day</th><th>Reviewed</th><th>Got It</th><th>Added</th></tr></thead><tbody>' + dayRows + '</tbody></table></div>' +
         '</section>' +
         '<section class="rep-card rep-card-weekly">' +
@@ -6891,9 +6958,7 @@
           '<div class="rep-sec-title">This week · from Mon ' + fmtRepDate(curWk) + ' 5:30 PM</div>' +
           '<div class="daily-report-grid">' + tile(cw.reviewed, 'Reviewed') + tile(cw.added, 'Words added') +
             tile(cw.got, 'Got It ratings', 'var(--ok)') + tile(cw.unknown, "Didn't know", 'var(--bad)') + '</div>' +
-          (pw ? '<div class="rep-sec-title">Last week · ' + fmtRepDate(prevWk) + (pw.complete ? ' (final)' : '') + '</div>' +
-            '<div class="daily-report-grid">' + tile(pw.reviewed, 'Reviewed') + tile(pw.added, 'Words added') +
-            tile(pw.got, 'Got It ratings', 'var(--ok)') + tile(pw.days || 0, 'Active days') + '</div>' : '<div class="rep-empty">No report for last week yet.</div>') +
+          reportWeekKeys(Date.now()).slice(1).map(function(wk) { var w = r.weeks[wk] || _blankCounts(); return '<div class="rep-sec-title">Week · ' + fmtRepDate(wk) + '</div><div class="daily-report-grid">' + tile(w.reviewed, 'Reviewed') + tile(w.added, 'Words added') + tile(w.got, 'Got It ratings', 'var(--ok)') + tile(w.days || 0, 'Active days') + '</div>'; }).join('') +
         '</section>' +
         '<div class="rep-actions">' +
           (viewing ? '' : '<button class="bbtn rep-png-btn" onclick="exportReportPng()">🖼 Save as PNG</button>') +
@@ -6910,9 +6975,9 @@
       var cv = function(n, d) { return (cs.getPropertyValue(n) || '').trim() || d; };
       var C = { bg: cv('--bg', '#0f0f1a'), surf: cv('--surf', '#1a1a2e'), bdr: cv('--bdr', '#2d2d4e'), text: cv('--text', '#e2e8f0'),
         dim: cv('--dim', '#94a3b8'), acc: cv('--acc3', '#c084fc'), ok: cv('--ok', '#22c55e'), warn: cv('--warn', '#f59e0b'), bad: cv('--bad', '#c1362f') };
-      var now = Date.now(), curWk = reportWeekKey(now), prevWk = reportWeekKey(reportWeekStartMs(now) - 1);
-      var days = Object.keys(r.days).sort().reverse();
-      var W = 900, rowH = 38, H = 520 + Math.max(1, days.length) * rowH + 60;
+      var now = Date.now(), curWk = reportWeekKey(now);
+      var days = reportDayKeys(Date.now());
+      var W = 900, rowH = 38, H = 800 + Math.max(1, days.length) * rowH + 60;
       var cvs = document.createElement('canvas'), dpr = 2;
       cvs.width = W * dpr; cvs.height = H * dpr;
       var g = cvs.getContext('2d');
@@ -6938,9 +7003,8 @@
           font(13); g.fillStyle = C.dim; g.fillText(t[1], x + 16, y + 84);
         });
       };
-      block(140, 'This week (from Mon ' + fmtRepDate(curWk) + ' 5:30 PM)', curWk);
-      block(280, 'Last week (' + fmtRepDate(prevWk) + ')' + ((r.weeks[prevWk] || {}).complete ? ' — final' : ''), prevWk);
-      var y = 430;
+      reportWeekKeys(now).forEach(function(wk, i) { block(140 + i * 140, (i ? 'Week' : 'This week') + ' (from Mon ' + fmtRepDate(wk) + ' 5:30 PM)', wk); });
+      var y = 710;
       font(16, 700); g.fillStyle = C.text; g.fillText('Daily history', 40, y);
       y += 16;
       rr(40, y, W - 80, (Math.max(1, days.length) + 1) * rowH + 8, 12, C.surf, C.bdr);
@@ -7144,6 +7208,10 @@
             dc[d] = (dc[d] || 0) + 1;
           }
         });
+        if (!readOnlyMode) {
+          var history = loadReports();
+          Object.keys(history.days).forEach(function(date) { dc[date] = Math.max(dc[date] || 0, dayTotals(history.days[date]).added); });
+        }
         var _p2 = function(x) { return x < 10 ? '0' + x : String(x); };
         var _nowH = new Date(Date.now() + _hmOff);
         var _curKey = _nowH.getUTCFullYear() + '-' + _p2(_nowH.getUTCMonth() + 1);
@@ -7167,6 +7235,8 @@
             cnt = dc[key] || 0,
             cell = document.createElement('div');
           cell.className = 'hm-cell' + (cnt === 0 ? '' : cnt < 3 ? ' hm1' : cnt < 7 ? ' hm2' : ' hm3') + (key === todayKey ? ' hm-today' : '');
+          cell.setAttribute('role', 'button'); cell.tabIndex = 0;
+          (function(date) { cell.onclick = function() { openDailyReportModal(date); }; cell.onkeydown = function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDailyReportModal(date); } }; })(key);
           cell.title = key + ': ' + cnt + ' word' + (cnt === 1 ? '' : 's') + ' added';
           cell.innerHTML = '<span class="hm-day">' + dnum + '</span>' + (cnt ? '<span class="hm-cnt">+' + cnt + '</span>' : '');
           hm.appendChild(cell);
@@ -8405,7 +8475,7 @@
           // 9.0.7: tap to hear. A dependent vowel is voiced on a carrier consonant:
           // S1 = Series-1 ក (k-a), S2 = Series-2 គ (k-o). The symbol cell plays S1.
           var vS1 = v.kh.replace(/◌/g, 'ក'), vS2 = v.kh.replace(/◌/g, 'គ');
-          tr.innerHTML = '<td class="vt-kh vt-play" lang="km"><span class="ref-kh">' + v.kh + '</span><span class="ref-kh-cur">' + v.kh.replace(/◌/g, 'ក') + '</span></td>' +
+          tr.innerHTML = '<td class="vt-kh vt-play" lang="km"><span class="ref-kh">' + v.kh + '</span><span class="ref-kh-example">' + v.kh.replace(/◌/g, 'ក') + '</span></td>' +
             '<td class="vt-ro vt-play vt-s1" title="Tap to hear S1 (' + vS1 + ')">' + v.s1 + ' <span class="vt-spk">🔊</span></td>' +
             '<td class="vt-ro' + (v.s2 ? ' vt-play vt-s2' : '') + '"' + (v.s2 ? ' title="Tap to hear S2 (' + vS2 + ')"' : '') + '>' + (v.s2 || '—') + (v.s2 ? ' <span class="vt-spk">🔊</span>' : '') + '</td>' +
             '<td class="vt-ex" style="white-space:normal;line-height:1.5">' + esc(v.ex) + '</td>';
@@ -9335,6 +9405,8 @@
       SING_KHMER_WORDS.forEach(function(w) { have[String(w.sk).toLowerCase().trim()] = 1; });
       more.forEach(function(w) { if (!have[w.sk.toLowerCase()]) SING_KHMER_WORDS.push(w); });
     })();
+
+    (function() { var more = [{"en": "have you eaten yet?", "sk": "nham bai nv"}, {"en": "what are you doing?", "sk": "tver ey ng"}, {"en": "where are you now?", "sk": "nv na ng"}, {"en": "are you home yet?", "sk": "dol pteah nv"}, {"en": "I am on my way", "sk": "kompong tv"}, {"en": "wait a little", "sk": "jam tich"}, {"en": "wait for me", "sk": "jam nhom pg"}, {"en": "see you tomorrow", "sk": "jub knea saek"}, {"en": "see you later", "sk": "jub knea pel kroy"}, {"en": "call me", "sk": "call mk nhom"}, {"en": "send me a message", "sk": "chat mk nhom"}, {"en": "send your location", "sk": "pnher ti tang"}, {"en": "reply to me", "sk": "reply mk pg"}, {"en": "I miss you", "sk": "nik nas"}, {"en": "miss you too", "sk": "nik dae"}, {"en": "love you", "sk": "srolanh oun"}, {"en": "good night", "sk": "reatrey sousdey"}, {"en": "sweet dreams", "sk": "soben laor"}, {"en": "take care", "sk": "thae khluon pg"}, {"en": "get well soon", "sk": "chab chea na"}, {"en": "drive carefully", "sk": "ber lan prong prayat"}, {"en": "no worries", "sk": "min ey te"}, {"en": "just kidding", "sk": "leng te"}, {"en": "really?", "sk": "men ey"}, {"en": "for real", "sk": "men ten"}, {"en": "why like that?", "sk": "het ey jg"}, {"en": "what happened?", "sk": "mean ey kert lerng"}, {"en": "I do not understand", "sk": "ot yol te"}, {"en": "say it again", "sk": "niyeay mdong tiet"}, {"en": "a little busy", "sk": "rovul tich"}, {"en": "busy now", "sk": "rovul yl"}, {"en": "free now", "sk": "tumneng yl"}, {"en": "I am tired", "sk": "hot nas"}, {"en": "sleepy", "sk": "ngoy keng"}, {"en": "hungry", "sk": "khlean bai"}, {"en": "thirsty", "sk": "srek tuk"}, {"en": "eat first", "sk": "nham sen"}, {"en": "sleep first", "sk": "keng sen"}, {"en": "going home", "sk": "tv pteah"}, {"en": "come here", "sk": "mk nis"}, {"en": "go together", "sk": "tv jom knea"}, {"en": "come with me", "sk": "mk jom nhom"}, {"en": "have arrived", "sk": "dol hz"}, {"en": "not yet arrived", "sk": "ot ton dol"}, {"en": "a little late", "sk": "yut tich"}, {"en": "sorry I am late", "sk": "som tos yut"}, {"en": "what time?", "sk": "mong man"}, {"en": "where shall we meet?", "sk": "jub nv na"}, {"en": "can you help?", "sk": "juoy ban ot"}, {"en": "help me please", "sk": "juoy nhom pg"}, {"en": "thank you so much", "sk": "orkun chraen"}, {"en": "it is okay", "sk": "ot ey te"}, {"en": "how much is it?", "sk": "tlai man"}, {"en": "too expensive", "sk": "tlai pek"}, {"en": "discount please", "sk": "jos tlai tich"}, {"en": "already paid", "sk": "bong loy hz"}, {"en": "send money", "sk": "pnher loy"}, {"en": "no money", "sk": "ot mean loy"}, {"en": "out of battery", "sk": "os thmor"}, {"en": "bad internet", "sk": "net ot laor"}, {"en": "no signal", "sk": "ot mean sewa"}, {"en": "I will reply later", "sk": "jam reply pel kroy"}, {"en": "I am working", "sk": "kompong tver ka"}, {"en": "I am studying", "sk": "kompong rean"}, {"en": "I am in class", "sk": "nv knong thnak"}, {"en": "day off", "sk": "thngai somrak"}, {"en": "let us eat", "sk": "tos nham bai"}, {"en": "let us go", "sk": "tos tv"}, {"en": "what do you want to eat?", "sk": "jong nham ey"}, {"en": "delicious", "sk": "chnganh nas"}, {"en": "not spicy", "sk": "ot hel"}, {"en": "a little spicy", "sk": "hel tich"}, {"en": "raining", "sk": "phleang"}, {"en": "very hot", "sk": "kdav nas"}, {"en": "I am okay", "sk": "nhom sok sabay"}, {"en": "how about you?", "sk": "jos nea"}, {"en": "same here", "sk": "doch knea"}, {"en": "me too", "sk": "nhom dae"}, {"en": "not me", "sk": "ot men nhom"}, {"en": "who is that?", "sk": "nea na ng"}, {"en": "do not forget", "sk": "kom phlech na"}, {"en": "remember me", "sk": "kom phlech nhom"}, {"en": "promise?", "sk": "sanya ot"}, {"en": "sure", "sk": "chbas hz"}, {"en": "maybe", "sk": "brahael"}, {"en": "next time", "sk": "lerk kroy"}, {"en": "no problem", "sk": "ot mean banha"}, {"en": "I am sorry", "sk": "som tos na"}, {"en": "happy birthday", "sk": "rikreay thngai komnaet"}, {"en": "good luck", "sk": "som oy mean samnang"}, {"en": "okay then", "sk": "jg ban"}, {"en": "why not?", "sk": "het ey ot ban"}, {"en": "do not be angry", "sk": "kom kheng na"}, {"en": "are you angry?", "sk": "kheng men"}, {"en": "funny", "sk": "kamblaeng"}, {"en": "so cute", "sk": "cute nas"}, {"en": "beautiful", "sk": "sart nas"}, {"en": "handsome", "sk": "sangha"}, {"en": "very good", "sk": "laor nas"}, {"en": "not bad", "sk": "ot akrak te"}, {"en": "send a photo", "sk": "pnher rup"}, {"en": "congratulations", "sk": "orb orsator"}]; var have = {}; SING_KHMER_WORDS.forEach(function(w) { have[w.sk.toLowerCase()] = true; }); more.forEach(function(w) { if (!have[w.sk.toLowerCase()]) { have[w.sk.toLowerCase()] = true; SING_KHMER_WORDS.push(w); } }); })();
 
     // 9.0.5: song terms, musical vocabulary and poetic lyric phrases
     (function() {
@@ -10457,6 +10529,7 @@
       _etaReset('imp');
       importState = {
         active: true,
+        cancelRequested: false,
         total: words.length,
         sent: 0,
         failed: 0,
@@ -10466,9 +10539,11 @@
       updateImportProgress();
 
       function sendChunk(ci) {
-        if (ci >= chunks.length) {
+        if (ci >= chunks.length || importState.cancelRequested) {
           importState.active = false;
+          _rememberEta('imp', importState.sent);
           setBusy(-1);
+          _statusRefresh();
           toast(importState.failed === 0 ? '✓ ' + importState.sent + ' words imported!' : importState.sent + ' imported, ' + importState.failed + ' failed.', importState.failed === 0 ? 'ok' : 'err');
           if (!mutationsInFlight()) setStatus('ok', allRows.length + ' words');
           loadData();
