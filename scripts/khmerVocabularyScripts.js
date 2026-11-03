@@ -565,7 +565,7 @@
     <div class="mcard">
       <h3>👋 Khmer Vocab — Log In</h3>
       <p style="font-size:.79rem;color:var(--dim);margin-bottom:14px;line-height:1.5">Enter your name and password to log in. If you're new, this will create your account.</p>
-      <p style="font-size:.79rem;color:var(--dim);margin-bottom:14px;line-height:1.5">Be careful. You can only recover this if you forgotten, or change this by contacting me here:<br>Email: <a href="mailto:olsen.porter@missionary.org" style="color:#6b9bd1;text-decoration:underline">olsen.porter@missionary.org</a><br>Messenger: <a href="https://m.me/olsen.porter" target="_blank" rel="noopener noreferrer" style="color:#6b9bd1;text-decoration:underline">m.me/olsen.porter</a></p>
+      <p style="font-size:.79rem;color:var(--dim);margin-bottom:14px;line-height:1.5">Be careful. You can only recover this if you forgotten, or change this by contacting me here:<br>Email: <a href="mailto:olsen.porter@missionary.org" style="color:#6b9bd1;text-decoration:underline">olsen.porter@missionary.org</a><br>Messenger: <a href="://m.me/olsen.porter" target="_blank" rel="noopener noreferrer" style="color:#6b9bd1;text-decoration:underline">m.me/olsen.porter</a></p>
       <label style="font-size:.7rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">Name</label>
       <input class="minput" id="user-inp" type="text" placeholder="Enter your name…" autocomplete="username" />
       <label style="font-size:.7rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px">Password</label>
@@ -946,7 +946,7 @@
             <div class="cr-title">Support</div>
             <div class="cr-sub">
               <div class="cr-sub">1. <a href="olsen.porter@missionary.org" style="text-decoration:underline;color:#6b9bd1">olsen.porter@missionary.org</a></div>
-              <div class="cr-sub">2. <a href="https://m.me/olsen.porter" style="text-decoration:underline;color:#6b9bd1">https://m.me/olsen.porter</a></div>
+              <div class="cr-sub">2. <a href="://m.me/olsen.porter" style="text-decoration:underline;color:#6b9bd1">://m.me/olsen.porter</a></div>
             </div>
           </div>
           <span style="font-size:.72rem;color:var(--dim)">Email &<br>Messenger</span>
@@ -955,8 +955,8 @@
           <div class="cfg-row-left">
             <div class="cr-title">Links</div>
             <div class="cr-sub">
-              <div class="cr-sub">1. <a href="https://docs.google.com/document/d/1ynpcFYYxTFDjj9exho4jvJZeWI55VQJDmJutVzQgH30/edit?usp=drivesdk" target="_blank" rel="noopener" style="text-decoration:underline;color:#6b9bd1">Changelog</a></div>
-              <div class="cr-sub">2. <a href="https://docs.google.com/document/d/1s1HbAuR1h9jH_MAjnk0gMCkzKoHNU9Sa1DiXR61RpgU/edit?usp=drivesdk" target="_blank" rel="noopener" style="text-decoration:underline;color:#6b9bd1">Feature Requests & Bug Reports</a></div>
+              <div class="cr-sub">1. <a href="://docs.google.com/document/d/1ynpcFYYxTFDjj9exho4jvJZeWI55VQJDmJutVzQgH30/edit?usp=drivesdk" target="_blank" rel="noopener" style="text-decoration:underline;color:#6b9bd1">Changelog</a></div>
+              <div class="cr-sub">2. <a href="://docs.google.com/document/d/1s1HbAuR1h9jH_MAjnk0gMCkzKoHNU9Sa1DiXR61RpgU/edit?usp=drivesdk" target="_blank" rel="noopener" style="text-decoration:underline;color:#6b9bd1">Feature Requests & Bug Reports</a></div>
             </div>
           </div>
           <span style="font-size:.72rem;color:var(--dim)">Extenal<br>Docs</span>
@@ -1298,7 +1298,7 @@
     var LAST_SEEN_VERSION_KEY = 'kv_last_seen_version';
     var CHANGELOG_URL = 'https://docs.google.com/document/d/1ynpcFYYxTFDjj9exho4jvJZeWI55VQJDmJutVzQgH30/edit?usp=drivesdk';
 
-    var SCRIPT_URL = ls(URL_KEY) || 'https://script.google.com/macros/s/AKfycby0rv_nTo73yH-gAERqOz4YOTnqJwPzy6BB5x4a-X_n5pQ06W3NzQx_hbTQ8YyEBtxx/exec';
+    var SCRIPT_URL = ls(URL_KEY) || 'https://script.google.com/macros/s/AKfycbwUUkdYjQjCXNW7kCGLgKJQyYXUr_FOikNU3bw2so8AmiuUkHPZSGKmO1727hdvQKQw/exec';
 
 
     var ADMIN_USER = 'Porter Olsen';
